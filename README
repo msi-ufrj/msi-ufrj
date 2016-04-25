@@ -1,0 +1,5 @@
+Cada um dos modelos deve ser empacotado em um diretório com o nome do modelo e conter os seguintes componentes:
+
+1. Arquivo  <modelo>.use --fonte
+2. Arquivo <modelo>.clt   --layout
+3. Arquivos <modelo><ind>.soil --animação
