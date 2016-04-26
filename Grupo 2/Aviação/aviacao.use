@@ -1,0 +1,47 @@
+model Aviacao
+
+class Piloto
+attributes
+	nome: String
+end
+
+class Tripulante
+attributes
+	nome: String
+end
+
+class Aviao
+attributes
+	
+end
+
+class Casa
+attributes
+	lugar: String
+end
+
+class Oficina
+attributes
+	lugar: String
+end
+
+association ResideP between
+  Piloto[0..*]
+  Casa[0..1]
+end
+
+association ResideT between
+  Tripulante[0..*]
+  Casa[0..1]
+end
+
+association Repara between
+	Aviao[0..*]
+	Oficina[0..1]
+end
+
+association Voo between
+	Aviao[1]
+	Piloto[1..*]
+	Tripulante[1..*]
+end

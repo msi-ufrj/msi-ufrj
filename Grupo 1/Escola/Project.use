@@ -1,0 +1,76 @@
+-- Professor, Disciplina, Turma, Aluno, Sala, Turno
+-- $ProjectHeader: use 0.393 Wed, 16 May 2007 14:10:28 +0200 opti $
+
+model Escola
+
+class Professor
+attributes
+  nome : String
+end
+
+class Tema
+attributes
+  nome : String
+end
+
+class Disciplina
+attributes
+  nome : String
+end
+
+class Turma
+attributes
+  nome : String  
+  
+end
+
+class Aluno
+attributes
+  nome : String  
+end
+
+class Sala
+attributes
+  nome : String
+  capacidade : Integer
+end
+
+class Turno
+attributes
+  nome : String  
+end
+
+association Qualificado between
+  Professor[*]
+  Tema[1..*]
+end
+
+association Tema_Disciplina between
+  Disciplina[*]
+  Tema[1..*]
+end
+
+association Turma_Professor between
+  Turma[*]
+  Professor[1..*]
+end
+
+association Turma_Disciplina between
+  Turma[*]
+  Disciplina[1]
+end
+
+association Turma_Aluno between
+  Turma[*]
+  Aluno[3..*]
+end
+
+association Turma_Sala between
+  Turma[*]
+  Sala[1]
+end
+
+association Turma_Turno between
+  Turma[*]
+  Turno[1]
+end

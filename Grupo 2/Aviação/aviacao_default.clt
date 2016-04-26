@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram_Layout version="13">
+  <diagramOptions>
+    <autolayout>true</autolayout>
+    <antialiasing>false</antialiasing>
+    <showassocnames>true</showassocnames>
+    <showattributes>false</showattributes>
+    <showmultiplicities>false</showmultiplicities>
+    <showoperations>false</showoperations>
+    <showrolenames>false</showrolenames>
+    <showgrid>false</showgrid>
+  </diagramOptions>
+  <node id="Casa" sizeCalculated="true" type="Class">
+    <name>Casa</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>134.17951447149886</x>
+      <y>135.5593069475766</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Tripulante" sizeCalculated="true" type="Class">
+    <name>Tripulante</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>20.0</x>
+      <y>260.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Aviao" sizeCalculated="true" type="Class">
+    <name>Aviao</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>257.2240995316981</x>
+      <y>150.36571834179964</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Piloto" sizeCalculated="true" type="Class">
+    <name>Piloto</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>26.119719169598127</x>
+      <y>20.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Oficina" sizeCalculated="true" type="Class">
+    <name>Oficina</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>463.0</x>
+      <y>126.38421872451758</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node height="20.0" id="Voo::DiamondNode" kind="association"
+    sizeCalculated="false" type="DiamondNode" width="40.0">
+    <name>Voo</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+      <userOffsetX>0.0</userOffsetX>
+      <userOffsetY>0.0</userOffsetY>
+      <offsetX>0.0</offsetX>
+      <offsetY>0.0</offsetY>
+      <related length="3">
+        <related0>Aviao</related0>
+        <related1>Piloto</related1>
+        <related2>Tripulante</related2>
+      </related>
+    </strategy>
+    <connectedNode>Tripulante</connectedNode>
+    <connectedNode>Aviao</connectedNode>
+    <connectedNode>Piloto</connectedNode>
+    <edgeproperty id="Voo::DiamondNode::AssociationName"
+      sizeCalculated="true" type="associationName" userDefined="false" visible="true">
+      <name>Voo</name>
+      <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
+        <userOffsetX>0.0</userOffsetX>
+        <userOffsetY>0.0</userOffsetY>
+        <basisDeltaX>ABSOLUTE</basisDeltaX>
+        <deltaX>0.0</deltaX>
+        <maxDeltaX>1.7976931348623157E308</maxDeltaX>
+        <basisDeltaY>ABSOLUTE</basisDeltaY>
+        <deltaY>10.0</deltaY>
+        <maxDeltaY>1.7976931348623157E308</maxDeltaY>
+        <corner>NORTH</corner>
+        <relativeNodeId>Voo::DiamondNode</relativeNodeId>
+      </strategy>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edge type="HalfEdge">
+      <source>Voo</source>
+      <target>Aviao</target>
+      <name>aviao</name>
+      <properties>
+        <edgeproperty id="Voo::aviao::target::multiplicity"
+          sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+          <name>0..1</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+            <attached>Voo::aviao::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>BOTTOM</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Voo::aviao::target::rolename"
+          sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+          <name>aviao</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+            <attached>Voo::aviao::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>TOP</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </properties>
+      <waypoints>
+        <edgeproperty id="Voo::aviao::WayPoint::0" sizeCalculated="true"
+          type="WayPoint" userDefined="false" visible="true">
+          <name>0</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>0</id>
+          <specialid>1</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Voo::aviao::WayPoint::1" sizeCalculated="true"
+          type="WayPoint" userDefined="false" visible="true">
+          <name>1</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>1</id>
+          <specialid>2</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </waypoints>
+      <hidden>false</hidden>
+    </edge>
+    <edge type="HalfEdge">
+      <source>Voo</source>
+      <target>Piloto</target>
+      <name>piloto</name>
+      <properties>
+        <edgeproperty id="Voo::piloto::target::multiplicity"
+          sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+          <name>1..*</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+            <attached>Voo::piloto::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>BOTTOM</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Voo::piloto::target::rolename"
+          sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+          <name>piloto</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+            <attached>Voo::piloto::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>TOP</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </properties>
+      <waypoints>
+        <edgeproperty id="Voo::piloto::WayPoint::0"
+          sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+          <name>0</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>0</id>
+          <specialid>1</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Voo::piloto::WayPoint::1"
+          sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+          <name>1</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>1</id>
+          <specialid>2</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </waypoints>
+      <hidden>false</hidden>
+    </edge>
+    <edge type="HalfEdge">
+      <source>Voo</source>
+      <target>Tripulante</target>
+      <name>tripulante</name>
+      <properties>
+        <edgeproperty id="Voo::tripulante::target::multiplicity"
+          sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+          <name>1..*</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+            <attached>Voo::tripulante::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>BOTTOM</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Voo::tripulante::target::rolename"
+          sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+          <name>tripulante</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+            <attached>Voo::tripulante::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>TOP</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </properties>
+      <waypoints>
+        <edgeproperty id="Voo::tripulante::WayPoint::0"
+          sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+          <name>0</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>0</id>
+          <specialid>1</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Voo::tripulante::WayPoint::1"
+          sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+          <name>1</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>1</id>
+          <specialid>2</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </waypoints>
+      <hidden>false</hidden>
+    </edge>
+    <hidden>false</hidden>
+  </node>
+  <edge type="BinaryEdge">
+    <source>Tripulante</source>
+    <target>Casa</target>
+    <name>ResideT</name>
+    <properties>
+      <edgeproperty id="ResideT::target::rolename" sizeCalculated="true"
+        type="rolename" userDefined="false" visible="true">
+        <name>casa</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>ResideT::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="ResideT::target::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>0..1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>ResideT::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="ResideT::source::rolename" sizeCalculated="true"
+        type="rolename" userDefined="false" visible="true">
+        <name>tripulante</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>ResideT::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="ResideT::source::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>ResideT::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="ResideT::AssociationName" sizeCalculated="true"
+        type="associationName" userDefined="false" visible="true">
+        <name>ResideT</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <offsetX>0.0</offsetX>
+          <offsetY>-10.0</offsetY>
+          <related length="2">
+            <related0>ResideT::WayPoint::0</related0>
+            <related1>ResideT::WayPoint::1</related1>
+          </related>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </properties>
+    <waypoints>
+      <edgeproperty id="ResideT::WayPoint::0" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>0</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>0</id>
+        <specialid>1</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="ResideT::WayPoint::1" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>1</id>
+        <specialid>2</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </waypoints>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>Piloto</source>
+    <target>Casa</target>
+    <name>ResideP</name>
+    <properties>
+      <edgeproperty id="ResideP::target::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>0..1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>ResideP::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="ResideP::target::rolename" sizeCalculated="true"
+        type="rolename" userDefined="false" visible="true">
+        <name>casa</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>ResideP::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="ResideP::source::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>ResideP::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="ResideP::source::rolename" sizeCalculated="true"
+        type="rolename" userDefined="false" visible="true">
+        <name>piloto</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>ResideP::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="ResideP::AssociationName" sizeCalculated="true"
+        type="associationName" userDefined="false" visible="true">
+        <name>ResideP</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <offsetX>0.0</offsetX>
+          <offsetY>-10.0</offsetY>
+          <related length="2">
+            <related0>ResideP::WayPoint::0</related0>
+            <related1>ResideP::WayPoint::1</related1>
+          </related>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </properties>
+    <waypoints>
+      <edgeproperty id="ResideP::WayPoint::0" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>0</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>0</id>
+        <specialid>1</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="ResideP::WayPoint::1" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>1</id>
+        <specialid>2</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </waypoints>
+    <hidden>false</hidden>
+  </edge>
+</diagram_Layout>
