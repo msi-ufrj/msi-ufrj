@@ -1,0 +1,65 @@
+-- $ProjectHeader: use 0.393 Wed, 16 May 2007 14:10:28 +0200 opti $
+
+-- Example from exercises of the lecture Object-oriented Software Design
+
+model Aviacao
+
+class Aviao
+attributes
+  nome : String
+end
+
+class Piloto
+attributes
+  nome : String
+end
+
+class Tripulacao
+attributes
+  nome : String  
+end
+
+class BaseCasa
+attributes
+  nome : String  
+end
+
+class Voo
+attributes
+  nome : String  
+end
+
+class BaseManutencao
+attributes
+  nome : String  
+end
+
+association PilotoReside between
+  Piloto[*]
+  BaseCasa[1]
+end
+
+association TripulacaoReside between
+  Tripulacao[*]
+  BaseCasa[1]
+end
+
+association Estaciona between
+  Aviao[*]
+  BaseManutencao[1]
+end
+
+association Pilota between
+  Piloto[1..*]
+  Voo[*]
+end
+
+association TrabalhaEm between
+  Tripulacao[1..*]
+  Voo[*]
+end
+
+association Aviao_Voo between
+  Aviao[1]
+  Voo[*]
+end

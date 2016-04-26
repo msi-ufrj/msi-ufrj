@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram_Layout version="13">
+  <diagramOptions>
+    <autolayout>false</autolayout>
+    <antialiasing>false</antialiasing>
+    <showassocnames>true</showassocnames>
+    <showattributes>false</showattributes>
+    <showmultiplicities>true</showmultiplicities>
+    <showoperations>false</showoperations>
+    <showrolenames>false</showrolenames>
+    <showgrid>false</showgrid>
+  </diagramOptions>
+  <node id="Professor" sizeCalculated="true" type="Class">
+    <name>Professor</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>140.0</x>
+      <y>179.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Disciplina" sizeCalculated="true" type="Class">
+    <name>Disciplina</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>24.0</x>
+      <y>65.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Tema" sizeCalculated="true" type="Class">
+    <name>Tema</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>34.0</x>
+      <y>178.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Turma" sizeCalculated="true" type="Class">
+    <name>Turma</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>273.0</x>
+      <y>65.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Sala" sizeCalculated="true" type="Class">
+    <name>Sala</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>277.0</x>
+      <y>181.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Aluno" sizeCalculated="true" type="Class">
+    <name>Aluno</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>413.0</x>
+      <y>66.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node height="20.0" id="Ministra::DiamondNode" kind="association"
+    sizeCalculated="false" type="DiamondNode" width="40.0">
+    <name>Ministra</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>149.83333333333334</x>
+      <y>64.83333333333333</y>
+    </strategy>
+    <connectedNode>Professor</connectedNode>
+    <connectedNode>Disciplina</connectedNode>
+    <connectedNode>Turma</connectedNode>
+    <edgeproperty id="Ministra::DiamondNode::AssociationName"
+      sizeCalculated="true" type="associationName" userDefined="true" visible="true">
+      <name>Ministra</name>
+      <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
+        <userOffsetX>0.0</userOffsetX>
+        <userOffsetY>7.0</userOffsetY>
+        <basisDeltaX>ABSOLUTE</basisDeltaX>
+        <deltaX>0.0</deltaX>
+        <maxDeltaX>1.7976931348623157E308</maxDeltaX>
+        <basisDeltaY>ABSOLUTE</basisDeltaY>
+        <deltaY>10.0</deltaY>
+        <maxDeltaY>1.7976931348623157E308</maxDeltaY>
+        <corner>NORTH</corner>
+        <relativeNodeId>Ministra::DiamondNode</relativeNodeId>
+      </strategy>
+      <hidden>false</hidden>
+    </edgeproperty>
+    <edge type="HalfEdge">
+      <source>Ministra</source>
+      <target>Professor</target>
+      <name>professor</name>
+      <properties>
+        <edgeproperty id="Ministra::professor::target::rolename"
+          sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+          <name>professor</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+            <attached>Ministra::professor::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>TOP</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Ministra::professor::target::multiplicity"
+          sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+          <name>1..*</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>33.0</userOffsetX>
+            <userOffsetY>4.0</userOffsetY>
+            <attached>Ministra::professor::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>BOTTOM</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </properties>
+      <waypoints>
+        <edgeproperty id="Ministra::professor::WayPoint::0"
+          sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+          <name>0</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>0</id>
+          <specialid>1</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Ministra::professor::WayPoint::1"
+          sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+          <name>1</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>1</id>
+          <specialid>2</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </waypoints>
+      <hidden>false</hidden>
+    </edge>
+    <edge type="HalfEdge">
+      <source>Ministra</source>
+      <target>Turma</target>
+      <name>turma</name>
+      <properties>
+        <edgeproperty id="Ministra::turma::target::rolename"
+          sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+          <name>turma</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+            <attached>Ministra::turma::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>TOP</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Ministra::turma::target::multiplicity"
+          sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+          <name>1</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>4.0</userOffsetX>
+            <userOffsetY>-8.0</userOffsetY>
+            <attached>Ministra::turma::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>BOTTOM</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </properties>
+      <waypoints>
+        <edgeproperty id="Ministra::turma::WayPoint::0"
+          sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+          <name>0</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>0</id>
+          <specialid>1</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Ministra::turma::WayPoint::1"
+          sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+          <name>1</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>1</id>
+          <specialid>2</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </waypoints>
+      <hidden>false</hidden>
+    </edge>
+    <edge type="HalfEdge">
+      <source>Ministra</source>
+      <target>Disciplina</target>
+      <name>disciplina</name>
+      <properties>
+        <edgeproperty id="Ministra::disciplina::target::rolename"
+          sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+          <name>disciplina</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+            <attached>Ministra::disciplina::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>TOP</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Ministra::disciplina::target::multiplicity"
+          sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+          <name>1</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+            <userOffsetX>3.0</userOffsetX>
+            <userOffsetY>-8.0</userOffsetY>
+            <attached>Ministra::disciplina::WayPoint::1</attached>
+            <offset_x>8</offset_x>
+            <offset_y>8</offset_y>
+            <placement>BOTTOM</placement>
+          </strategy>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </properties>
+      <waypoints>
+        <edgeproperty id="Ministra::disciplina::WayPoint::0"
+          sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+          <name>0</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>0</id>
+          <specialid>1</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+        <edgeproperty id="Ministra::disciplina::WayPoint::1"
+          sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+          <name>1</name>
+          <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+            <userOffsetX>0.0</userOffsetX>
+            <userOffsetY>0.0</userOffsetY>
+          </strategy>
+          <id>1</id>
+          <specialid>2</specialid>
+          <hidden>false</hidden>
+        </edgeproperty>
+      </waypoints>
+      <hidden>false</hidden>
+    </edge>
+    <hidden>false</hidden>
+  </node>
+  <edge type="BinaryEdge">
+    <source>Disciplina</source>
+    <target>Tema</target>
+    <name>Ementa</name>
+    <properties>
+      <edgeproperty id="Ementa::target::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Ementa::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Ementa::target::rolename" sizeCalculated="true"
+        type="rolename" userDefined="false" visible="true">
+        <name>tema</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Ementa::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Ementa::source::rolename" sizeCalculated="true"
+        type="rolename" userDefined="false" visible="true">
+        <name>disciplina</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Ementa::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Ementa::source::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Ementa::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Ementa::AssociationName" sizeCalculated="true"
+        type="associationName" userDefined="true" visible="true">
+        <name>Ementa</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+          <userOffsetX>-20.0</userOffsetX>
+          <userOffsetY>9.0</userOffsetY>
+          <offsetX>0.0</offsetX>
+          <offsetY>-10.0</offsetY>
+          <related length="2">
+            <related0>Ementa::WayPoint::0</related0>
+            <related1>Ementa::WayPoint::1</related1>
+          </related>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </properties>
+    <waypoints>
+      <edgeproperty id="Ementa::WayPoint::0" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>0</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>0</id>
+        <specialid>1</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Ementa::WayPoint::1" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>1</id>
+        <specialid>2</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </waypoints>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>Turma</source>
+    <target>Sala</target>
+    <name>Aloca</name>
+    <properties>
+      <edgeproperty id="Aloca::target::rolename" sizeCalculated="true"
+        type="rolename" userDefined="false" visible="true">
+        <name>sala</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Aloca::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Aloca::target::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>7.0</userOffsetX>
+          <userOffsetY>7.0</userOffsetY>
+          <attached>Aloca::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Aloca::source::rolename" sizeCalculated="true"
+        type="rolename" userDefined="false" visible="true">
+        <name>turma</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Aloca::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Aloca::source::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>7.0</userOffsetX>
+          <userOffsetY>3.0</userOffsetY>
+          <attached>Aloca::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Aloca::AssociationName" sizeCalculated="true"
+        type="associationName" userDefined="true" visible="true">
+        <name>Aloca</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+          <userOffsetX>18.0</userOffsetX>
+          <userOffsetY>5.0</userOffsetY>
+          <offsetX>0.0</offsetX>
+          <offsetY>-10.0</offsetY>
+          <related length="2">
+            <related0>Aloca::WayPoint::0</related0>
+            <related1>Aloca::WayPoint::1</related1>
+          </related>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </properties>
+    <waypoints>
+      <edgeproperty id="Aloca::WayPoint::0" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>0</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>0</id>
+        <specialid>1</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Aloca::WayPoint::1" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>1</id>
+        <specialid>2</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </waypoints>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>Professor</source>
+    <target>Tema</target>
+    <name>Qualificado</name>
+    <properties>
+      <edgeproperty id="Qualificado::target::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>4.0</userOffsetX>
+          <userOffsetY>-4.0</userOffsetY>
+          <attached>Qualificado::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Qualificado::target::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>tema</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Qualificado::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Qualificado::source::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>8.0</userOffsetX>
+          <userOffsetY>-4.0</userOffsetY>
+          <attached>Qualificado::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Qualificado::source::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>professor</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Qualificado::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Qualificado::AssociationName"
+        sizeCalculated="true" type="associationName" userDefined="true" visible="true">
+        <name>Qualificado</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+          <userOffsetX>1.0</userOffsetX>
+          <userOffsetY>19.0</userOffsetY>
+          <offsetX>0.0</offsetX>
+          <offsetY>-10.0</offsetY>
+          <related length="2">
+            <related0>Qualificado::WayPoint::0</related0>
+            <related1>Qualificado::WayPoint::1</related1>
+          </related>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </properties>
+    <waypoints>
+      <edgeproperty id="Qualificado::WayPoint::0" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>0</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>0</id>
+        <specialid>1</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Qualificado::WayPoint::1" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>1</id>
+        <specialid>2</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </waypoints>
+    <hidden>false</hidden>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>Aluno</source>
+    <target>Turma</target>
+    <name>Inscreve</name>
+    <properties>
+      <edgeproperty id="Inscreve::target::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>turma</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Inscreve::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Inscreve::target::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>2.0</userOffsetX>
+          <userOffsetY>-4.0</userOffsetY>
+          <attached>Inscreve::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Inscreve::source::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>aluno</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Inscreve::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Inscreve::source::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+        <name>3..*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>7.0</userOffsetX>
+          <userOffsetY>-9.0</userOffsetY>
+          <attached>Inscreve::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Inscreve::AssociationName" sizeCalculated="true"
+        type="associationName" userDefined="false" visible="true">
+        <name>Inscreve</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <offsetX>0.0</offsetX>
+          <offsetY>-10.0</offsetY>
+          <related length="2">
+            <related0>Inscreve::WayPoint::0</related0>
+            <related1>Inscreve::WayPoint::1</related1>
+          </related>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </properties>
+    <waypoints>
+      <edgeproperty id="Inscreve::WayPoint::0" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>0</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>0</id>
+        <specialid>1</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Inscreve::WayPoint::1" sizeCalculated="true"
+        type="WayPoint" userDefined="false" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>1</id>
+        <specialid>2</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </waypoints>
+    <hidden>false</hidden>
+  </edge>
+</diagram_Layout>

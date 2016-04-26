@@ -1,0 +1,62 @@
+model Escola
+
+class Professor
+attributes
+end
+
+class Turma
+attributes
+end
+
+class Disciplina
+attributes
+end
+
+class Aluno
+attributes
+end
+
+class Sala
+attributes
+	capacidade: Integer
+end
+
+class Tema
+attributes
+end
+
+association Qualificado between
+	Professor[*]
+	Tema[*]
+end
+
+association Ementa between
+	Disciplina[*]
+	Tema[*]
+end
+
+association Aloca between
+	Turma[*]
+	Sala[1]
+end
+
+association Inscreve between
+	Aluno[3..*]
+	Turma[*]
+end
+
+association Ministra between
+	Professor[1..*]
+	Turma[1]
+	Disciplina[1]
+end
+
+constraints
+
+context Turma
+  inv LimiteCapacidade:
+    self.aluno->size <= self.sala.capacidade
+  inv ProfessorQualificado:
+    self.professor.tema->asSet->intersection(self.disciplina.tema->asSet)->size = self.disciplina.tema->size
+
+	
