@@ -1,0 +1,34 @@
+model MVoo
+
+class Voo
+attributes
+	numVoo: Integer
+operations
+	assentosDisponiveis(): Integer = 0.max(aviao.numAssentos-passageiros->size())
+end
+
+class Aviao
+attributes
+	numAssentos: Integer
+end
+
+class Pessoa
+attributes
+	name: String
+end
+
+association VA between
+	Voo[0..*] role voo
+	Aviao[1] role aviao
+end
+
+association VP between
+	Voo[0..*] role voo
+	Pessoa[0..*] role passageiros
+end
+
+
+constraints
+
+context Voo
+inv: passageiros->size() <= aviao.numAssentos
