@@ -1,0 +1,57 @@
+model Hipoteca
+
+class Data
+operations
+	isBefore(startDate : Data, endDate: Data): Boolean
+end
+
+class Money
+end
+
+class House
+attributes
+  value : Integer
+end
+
+class Person
+attributes
+  socSecNr : Integer
+  salary : Integer
+operations
+	getMortgage(sum : Integer, monthlyPayment: Integer, startDate:Integer, endDate:Integer, security: House)
+end
+
+class Mortgage
+attributes
+	principal : Integer
+	monthlyPayment : Integer  
+	startDate : Integer
+	endDate : Integer  
+end
+
+association Person_House between
+  Person[1] role owner
+  House[*] role houses
+end
+
+association Person_Mortgage between
+  Person[1] role borrower
+  Mortgage[*] role mortgages
+end
+
+association House_Mortgage between
+  House[1] role security
+  Mortgage[*] role mortgages
+end
+
+
+constraints 
+	context Mortgage
+	inv HouseOwner: borrower = security.owner
+	inv StartDateIsBeforeEndDate: startDate < endDate
+
+	context Person
+	inv UniquesocSecNr: Person.allInstances() -> isUnique (socSecNr)
+	context Person::getMortgage(sum : Integer, monthlyPayment: Integer, startDate:Integer, endDate:Integer, security : House)
+	pre PossuiRendimentoParaNovaHipoteca: self.mortgages->collect(monthlyPayment)->sum() + monthlyPayment <= self.salary * 0.30 
+	pre CasaValeValorHipoteca: security.value >= security.mortgages->collect(principal)->sum() + sum
