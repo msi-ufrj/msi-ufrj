@@ -1,0 +1,68 @@
+model Hipotecas
+
+class Casa
+attributes
+	valor: Real
+end
+
+class Pessoa
+attributes
+	CPF: Integer
+	salario: Real
+operations
+	obterHipoteca(total: Real, casaHipotecada: Casa, mensalidade: Real)
+end
+
+class Hipoteca
+attributes
+	valor: Real
+	mensalidade: Real
+	dataInicio: Integer
+	dataFim: Integer
+end
+
+--class Data
+--attributes
+	--dia: Integer
+--operations
+	--Antes(d1: Data, d2: Data): Boolean		
+--end
+
+association CP between
+	Casa[0..*] role casa
+	Pessoa[1] role dono
+end
+
+association PH between
+	Pessoa[1] role devedor
+	Hipoteca[0..*] role hipoteca
+end
+
+association CH between
+	Casa[1] role garantia
+	Hipoteca[0..*] role hipoteca
+end
+
+constraints
+
+context Hipoteca
+inv: devedor = garantia.dono
+
+context Hipoteca
+inv: dataInicio < dataFim
+
+context Pessoa
+inv: Pessoa.allInstances()->isUnique(CPF)
+
+context Pessoa::obterHipoteca(total: Real, mensalidade: Real, casaHipotecada: Casa)
+pre: self.hipoteca->collect(mensalidade)->sum() + mensalidade <= salario * 0.3
+pre: casaHipotecada.valor >= casaHipotecada.hipoteca->collect(valor)->sum() + total
+
+
+
+
+
+
+
+
+

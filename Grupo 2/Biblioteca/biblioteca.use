@@ -1,0 +1,54 @@
+model Biblioteca
+
+--enum CategoriaLeitor {Aluno, Professor}
+
+class Leitor
+attributes
+	CPF: Integer
+	nome: String
+	categoria: Integer -- 0 aluno, 1 professor --CategoriaLeitor
+	cartaoID: Integer
+operations
+	fazerEmprestimo()
+end
+
+
+class Livro
+attributes
+	ISBN: Integer
+	titulo: String
+	editora: String
+	anoImpressao: Integer
+	numExemplares: Integer
+end
+
+class Autor
+attributes
+	nome: String
+end
+
+class Emprestimo
+attributes
+	dataDevolucao: Integer
+end
+
+association LivroAutor between
+	Livro[0..*] role livro
+	Autor[1..*] role autor
+end
+
+association LeitorEmp between
+	Leitor[1] role leitor
+	Emprestimo[0..5] role emprestimo
+end
+
+association LivroEmp between
+	Livro[1] role livro
+	Emprestimo[0..*] role emprestimo
+end
+
+constraints
+
+context Leitor::fazerEmprestimo()
+pre: 
+
