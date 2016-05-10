@@ -1,0 +1,76 @@
+model Biblioteca
+
+class Professor < Leitor
+end
+
+class Aluno < Leitor 
+end
+
+abstract class Leitor
+attributes
+	identificacao: String
+	nome: String
+	apto: Boolean
+end
+
+class Livro
+attributes
+	isbn: String
+	autores: String
+	titulo: String
+	editora: String
+	ano: Integer
+operations
+	exemplaresDisponiveis(): Integer =
+	exemplares->size()
+end
+
+class Exemplar
+operations
+	pedeEmprestimo(leitor : Leitor, dataIncial:Integer, dataFinal:Integer)
+end
+
+associationclass Emprestimo between
+Leitor[0..1] role leitor
+Exemplar[*] role exemplares
+attributes
+	dataIncial: Integer
+	dataFinal: Integer
+end
+
+associationclass Reserva between
+Leitor[*] role leitores
+Livro [*] role livros
+attributes
+	dataReserva: Integer
+	dataIncial: Integer
+	dataFinal: Integer
+end
+
+class Multa
+attributes
+	valor: Integer
+end
+
+association Livro_Exemplar between
+	Livro[1] role livro
+	Exemplar[*] role exemplares
+end
+
+association Multa_Emprestimo between
+	Multa [0..1] role multa
+	Emprestimo [1] role emprestimo
+end
+
+constraints
+	context Exemplar::pedeEmprestimo(leitor : Leitor, dataIncial:Integer, dataFinal:Integer)
+		pre VerficaMaximoExemplar: if leitor.oclIsKindOf(Leitor)
+								   then leitor.exemplares->size() < 3 
+								   else leitor.exemplares->size() < 5
+								   endif
+								   
+   context Exemplar::pedeEmprestimo(leitor : Leitor, dataIncial:Integer, dataFinal:Integer)
+		pre VerificaTempoMaximoDeEmprestimo: if leitor.oclIsKindOf(Leitor)
+								   then dataFinal - dataIncial < 3 
+								   else dataFinal - dataIncial < 7
+								   endif
