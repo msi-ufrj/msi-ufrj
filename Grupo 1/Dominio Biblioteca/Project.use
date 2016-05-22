@@ -90,7 +90,7 @@ constraints
 		
 	context Leitor::verificaInadiplencia(dataAtual:Integer)
 		post VerificaMulta:
-			emprestimo->forAll(emprestimo | emprestimo.dataFinal < dataAtual)
+			emprestimo->select(dataFinal < dataAtual)->forAll(emprestimo | emprestimo.multa->size() = 1)
 	
 	context Leitor
 		inv InvalidarReservas: estado = EstadoAtraso::normal or reserva->size() = 0
