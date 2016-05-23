@@ -1,5 +1,7 @@
 model Biblioteca
 
+enum EstadoAtraso {normal, atraso, atraso30, atraso90}
+
 class Professor < Leitor
 end
 
@@ -10,7 +12,9 @@ abstract class Leitor
 attributes
 	identificacao: String
 	nome: String
-	apto: Boolean
+	estado: EstadoAtraso
+operations
+	verificaInadiplencia(dataAtual:Integer)
 end
 
 class Livro
@@ -64,13 +68,32 @@ end
 
 constraints
 	context Exemplar::pedeEmprestimo(leitor : Leitor, dataIncial:Integer, dataFinal:Integer)
-		pre VerficaMaximoExemplar: if leitor.oclIsKindOf(Leitor)
-								   then leitor.exemplares->size() < 3 
-								   else leitor.exemplares->size() < 5
-								   endif
+		pre VerficaMaximoExemplar: 
+			if 
+				leitor.oclIsKindOf(Aluno)
+			then 
+				leitor.exemplares->size() < 3 
+			else 
+				leitor.exemplares->size() < 5
+			endif
 								   
-   context Exemplar::pedeEmprestimo(leitor : Leitor, dataIncial:Integer, dataFinal:Integer)
-		pre VerificaTempoMaximoDeEmprestimo: if leitor.oclIsKindOf(Leitor)
-								   then dataFinal - dataIncial < 3 
-								   else dataFinal - dataIncial < 7
-								   endif
+		pre VerificaTempoMaximoDeEmprestimo: 
+			if 
+				leitor.oclIsKindOf(Aluno)
+			then 
+				dataFinal - dataIncial = 3 
+			else 
+				dataFinal - dataIncial = 7
+			endif
+								   
+		pre VerificaAtraso: leitor.estado = EstadoAtraso::normal
+		
+	context Leitor::verificaInadiplencia(dataAtual:Integer)
+		post VerificaMulta:
+			emprestimo->select(dataFinal < dataAtual)->forAll(emprestimo | emprestimo.multa->size() = 1)
+	
+	context Leitor
+		inv InvalidarReservas: estado = EstadoAtraso::normal or reserva->size() = 0
+
+
+	
