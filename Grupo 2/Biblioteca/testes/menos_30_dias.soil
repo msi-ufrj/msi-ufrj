@@ -1,0 +1,37 @@
+-- Teste para verificar os leitores com situacao irregular
+
+-- com atrasos de ate' 30 dias
+
+-- 1 Exemplar apenas ate' agora
+!new Biblioteca
+!new Autor
+!new Livro
+!insert (Livro1,Autor1) into AutorLivro
+!new Exemplar
+!insert (Livro1,Exemplar1) into LivroExemplar
+
+
+-- Leitor1 faz emprestimo do Exemplar1:
+!new Leitor
+!Leitor1.inscricao := SituacaoInscricao::normal
+!insert (Exemplar1,Leitor1) into Emprestimo
+!Emprestimo1.dataDevolucao := 10
+
+
+-- Outro Leitor vai reservar o Exemplar1:
+!new Leitor
+!Leitor2.inscricao := SituacaoInscricao::normal
+!insert (Livro1,Leitor2) into Reserva
+
+-- Agora vai pegar emprestado outro exemplar:
+!new Livro
+!insert (Livro2,Autor1) into AutorLivro
+!new Exemplar
+!insert (Livro2,Exemplar2) into LivroExemplar
+!insert (Exemplar2,Leitor2) into Emprestimo
+!Emprestimo2.dataDevolucao := 5
+
+-- O Leitor2 vai atrasar
+--!new Multa
+--!insert (Multa1,Emprestimo2) into MultaEmprestimo
+--!Multa1.tempo := 1

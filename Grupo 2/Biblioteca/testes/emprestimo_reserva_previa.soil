@@ -1,0 +1,62 @@
+-- Emprestimo com reserva previa
+
+-- 0. [___]
+-- 1. [E__] Leitor1 realiza emprestimo - ok
+-- 2. [ER_] Leitor2 realiza reserva - ok
+-- 3. [_R_] Leitor1 retorna livro - ok
+-- 4. [_RE] Leitor3 realiza emprestimo - err
+-- 5. [_E_] Leitor2 realiza emprestimo - ok
+
+
+-- 0. Criacao de instancias
+!new Autor
+
+!new Livro
+!insert (Livro1,Autor1) into AutorLivro
+
+!new Exemplar
+!insert (Livro1,Exemplar1) into LivroExemplar
+
+!new Leitor
+!Leitor1.categoria := CategoriaLeitor::aluno
+!Leitor1.inscricao := SituacaoInscricao::normal
+!new Leitor
+!Leitor2.categoria := CategoriaLeitor::aluno
+!Leitor2.inscricao := SituacaoInscricao::normal
+!new Leitor
+!Leitor3.categoria := CategoriaLeitor::aluno
+!Leitor3.inscricao := SituacaoInscricao::normal
+
+
+-- 1. [E__] Leitor1 realiza emprestimo - ok
+!openter Leitor1 obterEmprestimo(Exemplar1, 0)
+!insert (Exemplar1,Leitor1) into Emprestimo
+!Emprestimo1.dataEmprestimo := 0
+!Emprestimo1.dataDevolucao := 3
+!opexit Emprestimo1
+
+
+-- 2. [ER_] Leitor2 realiza reserva - ok
+!openter Leitor2 obterEmprestimo(Exemplar1, 0)
+!openter Leitor2 obterReserva(Livro1, 0)
+!insert (Livro1, Leitor2) into Reserva
+!Reserva1.dataReserva := 0
+!opexit Reserva1
+
+
+-- 3. [_R_] Leitor1 retorna livro - ok
+!openter Leitor1 retornarExemplar(Exemplar1)
+!delete (Exemplar1,Leitor1) from Emprestimo
+
+
+-- 4. [_RE] Leitor3 realiza emprestimo - err (ExemplarLivre = false)
+!openter Leitor2 obterEmprestimo(Exemplar1, 0)
+
+
+-- 5. [_E_] Leitor2 realiza emprestimo - ok
+!delete (Livro1,Leitor2) from Reserva
+!openter Leitor2 obterEmprestimo(Exemplar1, 0)
+!insert (Exemplar1,Leitor2) into Emprestimo
+!Emprestimo2.dataEmprestimo := 0
+!Emprestimo2.dataDevolucao := 3
+!opexit Emprestimo2

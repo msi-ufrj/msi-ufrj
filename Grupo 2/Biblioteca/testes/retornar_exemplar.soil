@@ -1,0 +1,33 @@
+-- Emprestimo com reserva previa
+
+-- 0. [_]
+-- 1. [E] Leitor1 realiza emprestimo - ok
+-- 2. [R] Leitor1 retorna livro - ok
+-- 3. [_]
+
+
+-- 0. Criacao de instancias
+!new Autor
+
+!new Livro
+!insert (Livro1,Autor1) into AutorLivro
+
+!new Exemplar
+!insert (Livro1,Exemplar1) into LivroExemplar
+
+!new Leitor
+!Leitor1.categoria := CategoriaLeitor::aluno
+!Leitor1.inscricao := SituacaoInscricao::normal
+
+
+-- 1. [E__] Leitor1 realiza emprestimo - ok
+!openter Leitor1 obterEmprestimo(Exemplar1, 0)
+!insert (Exemplar1,Leitor1) into Emprestimo
+!Emprestimo1.dataEmprestimo := 0
+!Emprestimo1.dataDevolucao := 3
+!opexit Emprestimo1
+
+
+-- 2. [_R_] Leitor1 retorna livro - ok
+!openter Leitor1 retornarExemplar(Exemplar1)
+!delete (Exemplar1,Leitor1) from Emprestimo

@@ -1,54 +1,177 @@
 model Biblioteca
 
---enum CategoriaLeitor {Aluno, Professor}
+enum CategoriaLeitor {aluno, professor}
+enum SituacaoInscricao {normal, atrasado, cancelado, processado}
 
 class Leitor
 attributes
-	CPF: Integer
-	nome: String
-	categoria: Integer -- 0 aluno, 1 professor --CategoriaLeitor
-	cartaoID: Integer
+  numRegistro: Integer
+  nome: String
+  categoria: CategoriaLeitor
+  cartaoId: Integer
+  inscricao: SituacaoInscricao
+  --tempoAtraso: Integer
 operations
-	fazerEmprestimo()
+  obterEmprestimo(exemplar: Exemplar, dataEmprestimo: Integer): Emprestimo
+  obterReserva(livro: Livro, dataReserva: Integer): Reserva
+  retornarExemplar(exemplar: Exemplar)
 end
-
 
 class Livro
 attributes
-	ISBN: Integer
-	titulo: String
-	editora: String
-	anoImpressao: Integer
-	numExemplares: Integer
+  codigoISBN: Integer
+  titulo: String
+  editora: String
+  anoDeImpressao: Integer
+operations
+  exemplaresDisponiveis(): Integer = self.exemplar->size() -
+    self.exemplar->collect(leitor)->asSet()->select(isDefined())->size()
+  proximaReserva(): Reserva = self.reserva->sortedBy(dataReserva)->first()
+  quantidadeReservas(): Integer = self.reserva->size()
+end
+
+class Biblioteca
+attributes
+operations
+  verificaLeitoresEmAtraso(dataHoje: Integer): Set(Leitor) =
+    Emprestimo.allInstances()->select((dataHoje - dataDevolucao) > 30)->
+    collect(leitor)->asSet()
+  aplicaAtrasados(dataHoje: Integer)
+  verificaLeitoresEmAtraso30(dataHoje: Integer): Set(Leitor) =
+    Emprestimo.allInstances()->select((dataHoje - dataDevolucao > 30) and
+    ((dataHoje - dataDevolucao) < 90))->collect(leitor)->asSet()
+  aplicaCancelados(dataHoje: Integer)
+  verificaLeitoresEmAtraso90(dataHoje: Integer): Set(Leitor) =
+    Emprestimo.allInstances()->select(dataHoje - dataDevolucao >= 90)->
+    collect(leitor)->asSet()
+  aplicaProcessados(dataHoje: Integer)
 end
 
 class Autor
 attributes
-	nome: String
+  nome: String
 end
 
-class Emprestimo
+class Exemplar
 attributes
-	dataDevolucao: Integer
+  id: Integer
 end
 
-association LivroAutor between
-	Livro[0..*] role livro
-	Autor[1..*] role autor
+class Multa
+attributes
+  tempo: Integer
 end
 
-association LeitorEmp between
-	Leitor[1] role leitor
-	Emprestimo[0..5] role emprestimo
+association BibliotecaLivro between
+  Biblioteca[1]
+  Livro[*]
 end
 
-association LivroEmp between
-	Livro[1] role livro
-	Emprestimo[0..*] role emprestimo
+association BibliotecaLeitor between
+  Biblioteca[1]
+  Leitor[*]
 end
+
+association AutorLivro between
+  Livro[*] role escrito
+  Autor[1..*] role escreve
+end
+
+association LivroExemplar between
+  Livro [1] role livro
+  Exemplar [*] role exemplar
+end
+
+associationclass Reserva between
+  Livro[*] role livro
+  Leitor[*] role leitor
+attributes
+  dataReserva: Integer
+  dataRetirada: Integer
+end
+
+associationclass Emprestimo between
+  Exemplar[*] role exemplar
+  Leitor[0..1] role leitor
+attributes
+  dataEmprestimo: Integer
+  dataDevolucao: Integer
+operations
+  retornarLivro(exemplar: Exemplar): Exemplar
+end
+
+association MultaEmprestimo between
+  Multa[0..*] role multa
+  Emprestimo[0..1] role emprestimo
+end
+
 
 constraints
 
-context Leitor::fazerEmprestimo()
-pre: 
+context Leitor::obterEmprestimo(exemplar: Exemplar,
+                                dataEmprestimo: Integer): Emprestimo
+  pre:
+    if self.categoria = CategoriaLeitor::aluno then
+      self.exemplar->size() < 3
+    else
+      self.exemplar->size() < 5
+    endif
 
+  pre: self.inscricao = SituacaoInscricao::normal
+
+  pre:
+    (Exemplar.allInstances()->size() - Exemplar.allInstances()->
+      collect(leitor)->asSet()->select(isDefined())->size()) > 0
+
+  -- A reserva deve ser removida antes da verificacao -v-
+  pre ExemplarLivre:
+    exemplar.livro.exemplaresDisponiveis() >
+      exemplar.livro.quantidadeReservas() --Leitor.allInstances()
+
+  post: result.oclIsNew()
+  post: result.dataEmprestimo = dataEmprestimo
+  post:
+    if self.categoria = CategoriaLeitor::aluno then
+      result.dataDevolucao = dataEmprestimo + 3
+    else
+      result.dataDevolucao = dataEmprestimo + 7
+    endif
+
+context Biblioteca::aplicaAtrasados(dataHoje: Integer)
+  post:
+    verificaLeitoresEmAtraso(dataHoje)->size() =
+      verificaLeitoresEmAtraso(dataHoje)->
+      select(inscricao <> SituacaoInscricao::normal)->size()
+  post: verificaLeitoresEmAtraso(dataHoje)->collect(reserva)->size() = 0
+  post:
+    verificaLeitoresEmAtraso(dataHoje)->size() =
+      verificaLeitoresEmAtraso(dataHoje)->
+      collect(emprestimo)->collect(multa)->size()
+
+context Biblioteca::aplicaCancelados(dataHoje: Integer)
+  post:
+    verificaLeitoresEmAtraso30(dataHoje)->size() =
+      verificaLeitoresEmAtraso30(dataHoje)->select(inscricao =
+      SituacaoInscricao::cancelado)->size()
+  post: verificaLeitoresEmAtraso30(dataHoje)->collect(reserva)->size() = 0
+  post:
+    verificaLeitoresEmAtraso30(dataHoje)->size() =
+      verificaLeitoresEmAtraso30(dataHoje)->
+      collect(emprestimo)->collect(multa)->size()
+
+context Biblioteca::aplicaProcessados(dataHoje: Integer)
+  post:
+    verificaLeitoresEmAtraso90(dataHoje)->size() =
+      verificaLeitoresEmAtraso90(dataHoje)->
+      select(inscricao = SituacaoInscricao::processado)->size()
+  post: verificaLeitoresEmAtraso90(dataHoje)->collect(reserva)->size() = 0
+  post:
+    verificaLeitoresEmAtraso90(dataHoje)->size() =
+      verificaLeitoresEmAtraso90(dataHoje)->
+      collect(emprestimo)->collect(multa)->size()
+
+context Leitor::obterReserva(livro: Livro, dataReserva: Integer): Reserva
+  pre:  livro.exemplaresDisponiveis() = 0
+  pre:  livro.exemplar->size() > 0
+  pre:  self.inscricao = SituacaoInscricao::normal
+  post: result.dataReserva = dataReserva
