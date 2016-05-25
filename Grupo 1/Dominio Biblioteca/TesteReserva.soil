@@ -1,0 +1,27 @@
+!new Aluno
+!new Livro
+!new Exemplar
+!insert (Livro1,Exemplar1) into Livro_Exemplar
+
+-- Teste falha leitor inadiplente nao pode realizar reserva
+-- Teste falha leitor com conta cancelada nao pode realizar reserva
+-- Teste falha livro que possui exemplar não pode ser reservado
+
+!Aluno1.estado := EstadoAtraso::Atraso
+!Aluno1.estadoMatricula := Situacao::Cancelada
+!openter Livro1 pedeReserva(Aluno1, 3)
+!opexit
+
+!new Aluno
+!insert (Aluno2,Exemplar1) into Emprestimo
+
+-- Teste sucesso leitor inadiplente nao pode realizar emprestimo
+-- Teste sucesso leitor com conta cancelada nao pode realizar emprestimo
+-- Teste sucesso livro que possui exemplar não pode ser reservado
+
+!Aluno1.estado := EstadoAtraso::Normal
+!Aluno1.estadoMatricula := Situacao::Ativa
+!openter Livro1 pedeReserva(Aluno1, 5)
+!insert (Aluno1,Livro1) into Reserva
+!opexit
+
