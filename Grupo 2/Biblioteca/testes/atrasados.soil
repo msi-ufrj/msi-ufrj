@@ -1,0 +1,10 @@
+-- Script para atender as pos condicoes
+-- do Biblioteca.aplicaAtrasados()
+
+!Leitor1.inscricao := SituacaoInscricao::atrasado
+!Leitor2.inscricao := SituacaoInscricao::atrasado
+!destroy Reserva1
+!new Multa
+!new Multa
+!insert (Multa2,Emprestimo2) into MultaEmprestimo
+!insert (Multa1,Emprestimo1) into MultaEmprestimo

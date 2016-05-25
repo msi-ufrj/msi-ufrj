@@ -1,0 +1,50 @@
+model Biblioteca
+
+class Categoria
+	numeroMaximoExemplares: Integer
+	numeroMaximoDias: Integer
+end
+
+class Professor < Categoria
+end
+
+class Aluno < Categoria 
+end
+
+class Leitor
+attributes
+	registro: String
+	nome: String
+	categoria: Categoria
+end
+
+class Livro
+attributes
+	isbn: String
+	autores: String
+	titulo: String
+	editora: String
+	ano: Integer
+end
+
+class Emprestimo
+attributes
+	dataIncial: Integer
+	dataFinalPrevista: Integer
+	dataFinalDevolucao: Integer
+end
+
+---association Leitor_Categoria between
+---	Leitor[1] role leitor
+---	Categoria[1] role categoria
+---end
+
+association Leitor_Emprestimo between
+	Leitor[1] role leitor
+	Emprestimo[*] role livro
+end
+
+association Emprestimo_Livro between
+	Emprestimo[*] role emprestimo
+	Livro[1] role livro
+end

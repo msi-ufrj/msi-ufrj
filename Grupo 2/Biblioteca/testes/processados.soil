@@ -1,0 +1,5 @@
+-- Script para atender as pos condicoes
+-- do Biblioteca.aplicaCancelados()
+
+!Leitor1.inscricao := SituacaoInscricao::processado
+!Leitor2.inscricao := SituacaoInscricao::processado
