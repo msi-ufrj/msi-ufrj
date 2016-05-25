@@ -1,0 +1,33 @@
+model OCLSampleAviacao
+
+class Airplane
+attributes
+  numberOfSeats : Integer
+end
+
+class Person
+attributes
+  name : String
+end
+
+class Flight
+attributes
+	flightnr : String  
+operations
+	availableSeats(): Integer =
+	plane.numberOfSeats - passengers->size()
+end
+
+association Flight_Airplane between
+  Flight[*] role flights
+  Airplane[1] role plane
+end
+
+association Flight_Person between
+  Flight[*] role flights
+  Person[*] role passengers
+end
+
+constraints 
+	context Flight
+	inv MaxPassengersLimit: passengers->size() <= plane.numberOfSeats

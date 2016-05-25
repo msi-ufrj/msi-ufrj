@@ -1,0 +1,81 @@
+-- Professor, Disciplina, Turma, Aluno, Sala, Turno
+-- $ProjectHeader: use 0.393 Wed, 16 May 2007 14:10:28 +0200 opti $
+
+model Escola
+
+class Professor
+attributes
+  nome : String
+end
+
+class Tema
+attributes
+  nome : String
+end
+
+class Disciplina
+attributes
+  nome : String
+end
+
+class Turma
+attributes
+  nome : String  
+  
+end
+
+class Aluno
+attributes
+  nome : String  
+end
+
+class Sala
+attributes
+  nome : String
+  capacidade : Integer
+end
+
+class Turno
+attributes
+  nome : String  
+end
+
+association Qualificado between
+  Professor[*] role professores
+  Tema[1..*] role temas
+end
+
+association Tema_Disciplina between
+  Disciplina[*] role disciplinas
+  Tema[1..*] role temas
+end
+
+association Turma_Professor between
+  Turma[*] role turmas
+  Professor[1..*] role professores
+end
+
+association Turma_Disciplina between
+  Turma[*] role turmas
+  Disciplina[1] role disciplina
+end
+
+association Turma_Aluno between
+  Turma[*] role turmas
+  Aluno[3..*] role alunos
+end
+
+association Turma_Sala between
+  Turma[*] role turmas
+  Sala[1] role sala
+end
+
+association Turma_Turno between
+  Turma[*]
+  Turno[1]
+end
+
+constraints 
+	context Turma
+	inv LimiteMaxAluno: alunos->size() <= sala.capacidade
+	inv ProfessorProeficiente: disciplina.temas->asSet->intersection(professores->collect(temas))->size = disciplina.temas->size()
