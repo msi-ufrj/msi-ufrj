@@ -1,0 +1,115 @@
+model RL
+
+enum CorCartao {silver, gold}
+
+class ProgramaLealdade
+attributes
+	nome: String
+operations
+	matricular(cliente: Cliente):Filiacao
+	obterServicos():Set(Servico) = self.parceiros.servicos->asSet()
+end
+
+class Cliente
+attributes
+	nome: String
+	titulo: String
+	dataNascimento: Data
+	--idade: Integer
+operations
+	--idade():Integer
+end
+
+associationclass Filiacao between
+	ProgramaLealdade[*] role programas
+	Cliente[*] role clientes
+attributes
+operations
+end
+
+class ParceiroPrograma
+attributes
+	numeroDeClientes: Integer
+	nome: String
+operations
+end
+
+class Servico
+attributes
+	condicao: Boolean
+	pontosAcumulados: Integer
+	pontosUsados: Integer
+	descricao: String
+	numeroServico: Integer
+operations
+	calculaPontos():Integer
+end
+
+association ProgramaParceiro between
+	ProgramaLealdade[1..*] role programas
+	ParceiroPrograma[1..*] role parceiros
+end
+
+association ParceiroServico between
+	ParceiroPrograma[1] role parceiro
+	Servico[*] role servicos
+end
+
+class Data
+attributes
+	dia: Integer
+	mes: Integer
+	ano: Integer
+operations
+	anterior(t: Data):Boolean
+	posterior(t: Data):Boolean
+end
+
+class NivelServico
+attributes
+	nome: String
+operations
+end
+
+class CartaoCliente
+attributes
+	valido: Boolean
+	validoDe: Data
+	goodThru: Data
+	cor: CorCartao
+	--nomeImpresso: String
+operations
+end
+
+class ContaLealdade
+attributes
+	pontos: Integer
+	numero: Integer
+operations
+	acumula(i: Integer)
+	usa(i:Integer)
+	zerado():Boolean
+end
+
+abstract class Transacao
+attributes
+	pontos: Integer
+	data: Data
+	amount: Real
+operations
+	programa():ProgramaLealdade
+end
+
+class Debito < Transacao
+end
+
+class Credito < Transacao
+end
+
+constraints
+
+context ProgramaLealdade::matricular(cliente: Cliente):Filiacao
+pre: self.clientes->excludes(cliente)
+-- ProgramaLealdade1.clientes->including(Cliente1)->size() = 0
+post: result.oclIsNew()
+
