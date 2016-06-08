@@ -20,39 +20,11 @@ operations
 	--idade():Integer
 end
 
-associationclass Filiacao between
-	ProgramaLealdade[*] role programas
-	Cliente[*] role clientes
-attributes
-operations
-end
-
 class ParceiroPrograma
 attributes
 	numeroDeClientes: Integer
 	nome: String
 operations
-end
-
-class Servico
-attributes
-	condicao: Boolean
-	pontosAcumulados: Integer
-	pontosUsados: Integer
-	descricao: String
-	numeroServico: Integer
-operations
-	calculaPontos():Integer
-end
-
-association ProgramaParceiro between
-	ProgramaLealdade[1..*] role programas
-	ParceiroPrograma[1..*] role parceiros
-end
-
-association ParceiroServico between
-	ParceiroPrograma[1] role parceiro
-	Servico[*] role servicos
 end
 
 class Data
@@ -71,6 +43,21 @@ attributes
 operations
 end
 
+abstract class Transacao
+attributes
+	pontos: Integer
+	data: Data
+	total: Real
+operations
+	programa():ProgramaLealdade
+end
+
+class Debito < Transacao
+end
+
+class Credito < Transacao
+end
+
 class CartaoCliente
 attributes
 	valido: Boolean
@@ -86,24 +73,80 @@ attributes
 	pontos: Integer
 	numero: Integer
 operations
-	acumula(i: Integer)
-	usa(i:Integer)
+	creditaPontos(p: Integer):Integer = self.pontos + p
+	debitaPontos(p:Integer):Integer = self.pontos - p
 	zerado():Boolean
+	geraTransacao(cartao: CartaoCliente, servico: Servico, total:Real, ehCredito: Boolean, transacao: Transacao):Integer =
+		if(ehCredito)
+			then
+				self.creditaPontos(servico.calculaPontos(total))
+			else
+				self.debitaPontos(servico.calculaPontos(total))
+		endif
 end
 
-abstract class Transacao
+class Servico
 attributes
-	pontos: Integer
-	data: Data
-	amount: Real
+	pontosAcumulados: Integer
+	pontosUsados: Integer
+	valorMinimo: Integer
+	pontosMinimos: Integer
+	pontosMais: Integer
 operations
-	programa():ProgramaLealdade
+	calculaPontos(total: Real):Integer = 
+		if (total < valorMinimo) 
+		then 
+			0
+		else
+			pontosMinimos + ((total.floor() - valorMinimo)*pontosMais)
+		endif
 end
 
-class Debito < Transacao
+associationclass Filiacao between
+	ProgramaLealdade[*] role programas
+	Cliente[*] role clientes
+attributes
+operations
 end
 
-class Credito < Transacao
+association ProgramaParceiro between
+	ProgramaLealdade[1..*] role programas
+	ParceiroPrograma[1..*] role parceiros
+end
+
+association ParceiroServico between
+	ParceiroPrograma[1] role parceiro
+	Servico[*] role servicos
+end
+
+association ServicoTransacao between
+	Servico[1] role servicos
+	Transacao[*] role transacoes
+end
+
+association ContaLealdadeTransacao between
+	ContaLealdade[1] role conta
+	Transacao[*] role transacoes
+end
+
+association CartaoClienteTransacao between
+	CartaoCliente[1] role cartao
+	Transacao[*] role transacoes
+end
+
+association FiliacaoContaLealdade between
+	Filiacao[1] role filiacao
+	ContaLealdade[0..1] role conta
+end
+
+association FiliacaoCartaoCliente between
+	Filiacao[1] role filiacao
+	CartaoCliente[1] role cartao
+end
+
+association ClienteCartaoCliente between
+	Cliente[1] role cliente
+	CartaoCliente[*] role cartoes
 end
 
 constraints
@@ -113,3 +156,18 @@ pre: self.clientes->excludes(cliente)
 -- ProgramaLealdade1.clientes->including(Cliente1)->size() = 0
 post: result.oclIsNew()
 
+
+context ContaLealdade::geraTransacao(cartao: CartaoCliente, servico: Servico, total:Real, ehCredito: Boolean, transacao: Transacao):Integer
+pre: cartao.valido = true
+
+-- o servico a ser utilizado deve pertencer ao programa de fidelidade a que o cartão está associado
+pre: servico.parceiro.programas->asSet()->includes(cartao.filiacao.programas) = true
+
+post: if(ehCredito) -- testar isso: Transacao.oclIsKindOf(Credito) --verifica o tipo de transação
+		then
+			self.pontos = self.pontos@pre + servico.calculaPontos(total)
+		else
+			self.pontos = self.pontos@pre - servico.calculaPontos(total)
+	  endif	  
+	  
+post: transacao.total = total
