@@ -1,0 +1,27 @@
+procedure generateLeitorInadimplente()
+var biblioteca: Biblioteca,
+    leitor:     Leitor,
+    autor:      Autor,
+    livro:      Livro,
+    exemplar: Exemplar;
+begin
+    biblioteca := Create(Biblioteca);
+    
+	leitor := Create(Leitor);
+    [leitor].categoria := [CategoriaLeitor::aluno];
+	--[leitor].inscricao := [SituacaoInscricao::normal];
+	[leitor].inscricao := [SituacaoInscricao::atrasado];
+	Insert(BibliotecaLeitor, [biblioteca], [leitor]);
+	
+	livro := Create(Livro);
+	Insert(BibliotecaLivro, [biblioteca], [livro]);
+	
+    autor := Create(Autor);
+	Insert(AutorLivro, [livro], [autor]);
+	
+	exemplar := Create(Exemplar);
+	Insert(LivroExemplar, [livro], [exemplar]);
+	
+	Insert(Reserva, [livro], [leitor]);
+	
+end;
