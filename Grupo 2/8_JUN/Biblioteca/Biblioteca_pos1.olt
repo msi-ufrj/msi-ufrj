@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram_Layout version="13">
+  <diagramOptions>
+    <autolayout>false</autolayout>
+    <antialiasing>false</antialiasing>
+    <showassocnames>true</showassocnames>
+    <showattributes>false</showattributes>
+    <showmultiplicities>false</showmultiplicities>
+    <showoperations>false</showoperations>
+    <showrolenames>false</showrolenames>
+    <showgrid>false</showgrid>
+    <ShowStates>false</ShowStates>
+  </diagramOptions>
+  <node id="Livro1" sizeCalculated="true" type="Object">
+    <name>Livro1</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>23.0</x>
+      <y>76.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Emprestimo1" sizeCalculated="true" type="Object">
+    <name>Emprestimo1</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
+      <userOffsetX>0.0</userOffsetX>
+      <userOffsetY>0.0</userOffsetY>
+      <basisDeltaX>ABSOLUTE</basisDeltaX>
+      <deltaX>0.0</deltaX>
+      <maxDeltaX>1.7976931348623157E308</maxDeltaX>
+      <basisDeltaY>ABSOLUTE</basisDeltaY>
+      <deltaY>-54.0</deltaY>
+      <maxDeltaY>1.7976931348623157E308</maxDeltaY>
+      <corner>NORTH</corner>
+      <relativeNodeId>Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::-1</relativeNodeId>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Exemplar1" sizeCalculated="true" type="Object">
+    <name>Exemplar1</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>177.0</x>
+      <y>76.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Leitor1" sizeCalculated="true" type="Object">
+    <name>Leitor1</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>417.0</x>
+      <y>77.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <node id="Autor1" sizeCalculated="true" type="Object">
+    <name>Autor1</name>
+    <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
+      <x>19.0</x>
+      <y>26.0</y>
+    </strategy>
+    <hidden>false</hidden>
+  </node>
+  <edge type="BinaryEdge">
+    <source>Livro1</source>
+    <target>Exemplar1</target>
+    <name>LivroExemplar</name>
+    <properties>
+      <edgeproperty
+        id="[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::target::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>exemplar</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::target::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::AssociationName"
+        sizeCalculated="true" type="associationName" userDefined="false" visible="true">
+        <name>LivroExemplar</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <offsetX>0.0</offsetX>
+          <offsetY>-10.0</offsetY>
+          <related length="2">
+            <related0>[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::WayPoint::0</related0>
+            <related1>[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::WayPoint::1</related1>
+          </related>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::source::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>livro</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::source::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </properties>
+    <waypoints>
+      <edgeproperty
+        id="[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::WayPoint::0"
+        sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+        <name>0</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>0</id>
+        <specialid>1</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]::WayPoint::1"
+        sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>1</id>
+        <specialid>2</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </waypoints>
+    <hidden>false</hidden>
+    <linkValue>[LivroExemplar : (exemplar:Exemplar1, livro:Livro1)]</linkValue>
+  </edge>
+  <edge type="BinaryEdge">
+    <source>Livro1</source>
+    <target>Autor1</target>
+    <name>AutorLivro</name>
+    <properties>
+      <edgeproperty
+        id="[AutorLivro : (escreve:Autor1, escrito:Livro1)]::target::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>escreve</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>[AutorLivro : (escreve:Autor1, escrito:Livro1)]::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="[AutorLivro : (escreve:Autor1, escrito:Livro1)]::target::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>1..*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>[AutorLivro : (escreve:Autor1, escrito:Livro1)]::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="[AutorLivro : (escreve:Autor1, escrito:Livro1)]::AssociationName"
+        sizeCalculated="true" type="associationName" userDefined="false" visible="true">
+        <name>AutorLivro</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <offsetX>0.0</offsetX>
+          <offsetY>-10.0</offsetY>
+          <related length="2">
+            <related0>[AutorLivro : (escreve:Autor1, escrito:Livro1)]::WayPoint::0</related0>
+            <related1>[AutorLivro : (escreve:Autor1, escrito:Livro1)]::WayPoint::1</related1>
+          </related>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="[AutorLivro : (escreve:Autor1, escrito:Livro1)]::source::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>[AutorLivro : (escreve:Autor1, escrito:Livro1)]::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="[AutorLivro : (escreve:Autor1, escrito:Livro1)]::source::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>escrito</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>[AutorLivro : (escreve:Autor1, escrito:Livro1)]::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </properties>
+    <waypoints>
+      <edgeproperty
+        id="[AutorLivro : (escreve:Autor1, escrito:Livro1)]::WayPoint::0"
+        sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+        <name>0</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>0</id>
+        <specialid>1</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="[AutorLivro : (escreve:Autor1, escrito:Livro1)]::WayPoint::1"
+        sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>1</id>
+        <specialid>2</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </waypoints>
+    <hidden>false</hidden>
+    <linkValue>[AutorLivro : (escreve:Autor1, escrito:Livro1)]</linkValue>
+  </edge>
+  <edge type="NodeEdge">
+    <source>Exemplar1</source>
+    <target>Leitor1</target>
+    <name>Emprestimo</name>
+    <properties>
+      <edgeproperty
+        id="Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::target::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>0..1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::target::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>leitor</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::AssociationName"
+        sizeCalculated="true" type="associationName" userDefined="false" visible="true">
+        <name>Emprestimo</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <offsetX>0.0</offsetX>
+          <offsetY>-10.0</offsetY>
+          <related length="2">
+            <related0>Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::0</related0>
+            <related1>Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::1</related1>
+          </related>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::source::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>exemplar</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::source::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </properties>
+    <waypoints>
+      <edgeproperty
+        id="Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::0"
+        sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+        <name>0</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>0</id>
+        <specialid>1</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty
+        id="Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::1"
+        sizeCalculated="true" type="WayPoint" userDefined="false" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyAttachedIntersection">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+        </strategy>
+        <id>1</id>
+        <specialid>2</specialid>
+        <hidden>false</hidden>
+      </edgeproperty>
+    </waypoints>
+    <hidden>false</hidden>
+    <connectionNode>
+      <edgeproperty
+        id="Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::-1"
+        sizeCalculated="true" type="WayPoint" userDefined="false" visible="false">
+        <name>-1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyInBetween">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <offsetX>0.0</offsetX>
+          <offsetY>0.0</offsetY>
+          <related length="2">
+            <related0>Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::0</related0>
+            <related1>Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::1</related1>
+          </related>
+        </strategy>
+        <id>-1</id>
+        <specialid>7</specialid>
+        <hidden>true</hidden>
+      </edgeproperty>
+    </connectionNode>
+    <associationClass>
+      <node id="Emprestimo1" sizeCalculated="true" type="Object">
+        <name>Emprestimo1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToCorner">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <basisDeltaX>ABSOLUTE</basisDeltaX>
+          <deltaX>0.0</deltaX>
+          <maxDeltaX>1.7976931348623157E308</maxDeltaX>
+          <basisDeltaY>ABSOLUTE</basisDeltaY>
+          <deltaY>-54.0</deltaY>
+          <maxDeltaY>1.7976931348623157E308</maxDeltaY>
+          <corner>NORTH</corner>
+          <relativeNodeId>Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]::WayPoint::-1</relativeNodeId>
+        </strategy>
+        <hidden>false</hidden>
+      </node>
+    </associationClass>
+    <linkValue>Emprestimo1 [Emprestimo : (exemplar:Exemplar1, leitor:Leitor1)]</linkValue>
+  </edge>
+</diagram_Layout>

@@ -1,0 +1,29 @@
+procedure generateAlunoExemplar()
+var biblioteca: Biblioteca,
+    leitor:     Leitor,
+    autor:      Autor,
+    livro:      Livro,
+    exemplares: Sequence(Exemplar);
+begin
+    biblioteca := Create(Biblioteca);
+    
+	leitor := Create(Leitor);
+    [leitor].categoria := [CategoriaLeitor::aluno];
+	Insert(BibliotecaLeitor, [biblioteca], [leitor]);
+	
+	livro := Create(Livro);
+	Insert(BibliotecaLivro, [biblioteca], [livro]);
+	
+    autor := Create(Autor);
+	Insert(AutorLivro, [livro], [autor]);
+	
+	--exemplares := CreateN(Exemplar,[3]);
+    exemplares := CreateN(Exemplar,[4]);
+	
+	for e:Exemplar in [exemplares]
+	begin
+        Insert(LivroExemplar, [livro], [e]);
+		Insert(Emprestimo, [e], [leitor]);
+	end;
+	
+end;
