@@ -1,0 +1,16 @@
+procedure generate1FlightWith1AirplaneWith1Person()
+var f: Flight, a: Airplane, p: Sequence(Person);
+begin
+	a:=Create(Airplane);
+	p:=CreateN(Person,[11]);
+	f:=Create(Flight);
+	
+	[a].numberOfSeats:=[10];
+	[f].flightnr:=['1'];
+			
+	Insert(Flight_Airplane, [f],[a]);
+	for i: Person in [p]
+	begin
+		Insert(Flight_Person, [f],[i]);
+	end;
+end;

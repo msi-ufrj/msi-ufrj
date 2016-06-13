@@ -1,0 +1,18 @@
+procedure generateAlunoEmprestimoExemplar()
+var a: Aluno, e: Sequence(Exemplar), l: Livro;
+
+begin
+	a:=Create(Aluno);
+	e:=CreateN(Exemplar,[4]);
+	l:=Create(Livro);
+	
+	for i: Exemplar in [e]
+	begin
+		Insert(Livro_Exemplar, [l],[i]);
+	end;
+	
+	for i: Exemplar in [e]
+	begin
+		Insert(Emprestimo, [a],[i]);
+	end;
+end;

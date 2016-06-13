@@ -1,0 +1,250 @@
+model RoyalLoyal
+
+enum Color {silver, gold}
+
+--class Data
+--operations
+--  static Data(year : Integer, month : Integer, day : Integer) : Data
+--  static now() : Data
+--  < (t : Data) : Boolean
+--  > (t : Data) : Boolean
+--  = (t : Data) : Boolean
+--  <> (t : Data) : Boolean
+--  isAfter(t :Data) : Boolean
+--  isBefore(t : Data) : Boolean  
+--end
+
+class Data
+attributes
+	year : Integer
+	month : Integer
+	day : Integer
+operations
+  now() : Data
+  isAfter(t :Data) : Boolean =  year > t.year or year = t.year and month > t.month or year = t.year and month = t.month and day > t.day
+  isBefore(t : Data) : Boolean =  year < t.year or year = t.year and month < t.month or year = t.year and month = t.month and day < t.day  
+  isEqual(t: Data): Boolean =  year = t.year and month = t.month and day = t.day  
+end
+
+class Burning < Transaction
+end
+
+class Earning < Transaction 
+end
+
+abstract class Transaction
+attributes
+	points: Integer
+	date: Data
+	amount: Integer
+operations
+	program():LoyaltyProgram
+end
+
+class LoyaltyAccount
+attributes
+	points: Integer
+	number: Integer
+operations
+	earn(i: Integer)
+	burn(i: Integer)
+	isEmpty(): Boolean
+	createTransaction(s: Service, currentDate: Data, amount: Integer, isBurning: Boolean) : Transaction
+	begin
+		declare t : Transaction, transactionPoints: Integer;
+		transactionPoints := s.calcPoints(amount, isBurning);
+		if isBurning then
+			t := new Burning;
+			self.points := self.points - transactionPoints;
+		else
+			t := new Earning;
+			self.points := self.points + transactionPoints;
+		end;
+		t.amount := amount;
+		t.date := currentDate;
+		t.points := transactionPoints;
+		
+		insert (t, self) into Transaction_LoyaltyAccount;
+		insert (t, s) into Transaction_Service;
+		insert (t, self.membership.card) into Transaction_CostumerCard;
+		
+		result := t;
+	end
+end
+
+class TestLoyaltyAccount
+operations
+	testCreateTransaction(la: LoyaltyAccount, s: Service, currentDate: Data, amount: Integer, isBurning: Boolean) : Boolean
+	begin
+		declare t : Transaction;
+		t := la.createTransaction(s, currentDate, amount, isBurning);
+		result := true;
+	end
+end
+
+class CostumerCard
+attributes
+	valid: Boolean
+	validFrom: Data
+	goodThru: Data
+	color: Color
+operations
+	printedName(): String
+	isValid(currentDate: Data) : Boolean = valid and validFrom.isBefore(currentDate) and goodThru.isAfter(currentDate)
+end
+
+class Service
+attributes
+	condition: Boolean
+	description: String
+	serviceNr: Integer
+	minReturn: Integer
+	minSpending: Integer
+	multiplier: Integer
+operations
+	calcPoints(amount: Integer, isBurning: Boolean): Integer = 
+		if 
+			isBurning
+		then 
+			amount * multiplier
+		else
+			if 
+				amount > minSpending
+			then 
+				amount * multiplier
+			else
+				0
+			endif
+		endif
+		
+end
+
+class ServiceLevel
+attributes
+	name: String
+end
+
+class ProgramPartner
+attributes
+	numberOfCustomers: Integer
+	name: String
+end
+
+class LoyaltyProgram
+attributes
+	name: String
+operations
+	enroll(c: Customer)
+	getServices(): Set(Service) = partners->collect(deliveredServices)->asSet()
+end
+
+class Customer
+attributes
+	name: String
+	title: String
+	isMale: String
+	dateOfBirth: Data	
+operations
+	age(): Integer
+end
+
+associationclass Membership between
+LoyaltyProgram[*] role programs
+Customer[*] role participants
+end
+
+association Transaction_Service between
+	Transaction [*] role transactions
+	Service [1] role generatedBy
+end
+
+association Transaction_LoyaltyAccount between
+	Transaction [*] role transactions
+	LoyaltyAccount [1] role account
+end
+
+association Service_ProgramPartner between
+	Service [*] role deliveredServices
+	ProgramPartner [1] role partner
+end
+
+association Service_ServiceLevel between
+	Service [*] role availableServices
+	ServiceLevel [1] role level
+end
+
+association ProgramPartner_LoyaltyProgram between
+	ProgramPartner [1..*] role partners
+	LoyaltyProgram [1..*] role programs
+end
+
+association ServiceLevel_LoyaltyProgram between
+	ServiceLevel [1..*] role levels ordered
+	LoyaltyProgram [1] role program
+end
+
+association ServiceLevel_Membership between
+	ServiceLevel [1] role currentLevel
+	Membership [*] 
+end
+
+association Membership_CostumerCard between
+	Membership [1] 
+	CostumerCard [1] role card
+end
+
+association LoyaltyAccount_Membership between
+	LoyaltyAccount [0..1] role account
+	Membership [1] 
+end
+
+association Transaction_CostumerCard between
+	Transaction [*] role transactions
+	CostumerCard [1] role card
+end
+
+association Customer_CostumerCard between
+	Customer [1] role owner
+	CostumerCard [*] role cards
+end
+
+constraints
+	context LoyaltyProgram::enroll(c: Customer)
+		pre VerifyParticipantNotEnrolled: 
+			participants->excludes(c)
+			
+		post CertifyMembership:
+			participants->includes(c)
+			
+	context LoyaltyAccount::createTransaction(s: Service, currentDate: Data, amount: Integer, isBurning: Boolean) : Transaction
+		pre VerifyParticipantValidCard: 
+			membership.card.isValid(currentDate)
+		
+		pre VerifyValidService: 
+			s.condition
+			
+		pre VerifyPointsToSpend: 
+			if 
+				isBurning
+			then 
+				s.calcPoints(amount, isBurning) < points
+			else
+				true
+			endif
+		
+		pre VerifyLoyaltyProgramHasService:
+			membership.programs.getServices()->includes(s)
+			
+		--post VerifyTransactionCreated:
+			--transactions->includes(t) and t.amount = amount and t.date = currentDate and t.points = s.calcPoints(amount, isBurning) and s.transactions->includes(t)
+		
+		post VerifyAccountPoints:
+			if 
+				isBurning
+			then 
+				points = points@pre - s.calcPoints(amount, isBurning)
+			else
+				points = points@pre + s.calcPoints(amount, isBurning)
+			endif
+		
+		
