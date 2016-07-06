@@ -1,0 +1,24 @@
+
+
+!new Customer 
+!new CostumerCard 
+!new LoyaltyProgram 
+!new LoyaltyAccount 
+!new Service	
+!new ProgramPartner 
+!new ServiceLevel 
+!new TestLoyaltyAccount 
+!new Data 
+!new Burning 
+!new Earning 
+
+!insert (LoyaltyProgram1, Customer1) into Membership
+!insert (ProgramPartner1, LoyaltyProgram1) into ProgramPartner_LoyaltyProgram
+!insert (Service1, ProgramPartner1) into Service_ProgramPartner
+!insert (ServiceLevel1, LoyaltyProgram1) into ServiceLevel_LoyaltyProgram
+!insert	(Customer1, CostumerCard1) into Customer_CostumerCard
+!insert	(Burning1, CostumerCard1) into Transaction_CostumerCard
+!insert	(Burning1, Service1) into Transaction_Service
+!insert	(Earning1, CostumerCard1) into Transaction_CostumerCard
+!insert	(Earning1, Service1) into Transaction_Service
+

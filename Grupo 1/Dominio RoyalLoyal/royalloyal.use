@@ -134,7 +134,42 @@ class LoyaltyProgram
 attributes
 	name: String
 operations
-	enroll(c: Customer)
+	enroll(c: Customer, currentDate: Data, sl: ServiceLevel) : Membership
+	begin
+		declare m: Membership, cc: CostumerCard, la: LoyaltyAccount, d: Data, amb: Set(Membership), ama: Set(Membership), hm: Set(Membership), om: OrderedSet(Membership); 
+		
+		amb := Membership.allInstances();
+		insert(self, c) into Membership;
+		ama := Membership.allInstances();
+		hm := ama - amb;
+		om := hm->asOrderedSet();
+		m := om->first();
+		
+		cc := new CostumerCard;
+		la := new LoyaltyAccount;
+		d := new Data;
+		d.day:= currentDate.day;
+		d.month:= currentDate.month;
+		d.year:= currentDate.year + 1;
+		
+		insert (m, cc) into Membership_CostumerCard;
+		insert (la, m) into LoyaltyAccount_Membership;
+		insert (sl, m) into ServiceLevel_Membership;
+		
+		cc.validFrom := currentDate;
+		cc.valid := true;
+		cc.goodThru := d;
+		cc.color := Color::silver;
+		
+		la.points:= 0;
+		la.number:= 1;
+		
+		result := m;
+	end
+	unroll(c: Customer)
+	begin
+		delete (self, c) from Membership;
+	end
 	getServices(): Set(Service) = partners->collect(deliveredServices)->asSet()
 end
 
@@ -209,7 +244,7 @@ association Customer_CostumerCard between
 end
 
 constraints
-	context LoyaltyProgram::enroll(c: Customer)
+	context LoyaltyProgram::enroll(c: Customer, currentDate: Data, sl: ServiceLevel) : Membership
 		pre VerifyParticipantNotEnrolled: 
 			participants->excludes(c)
 			

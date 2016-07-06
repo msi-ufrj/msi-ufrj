@@ -1,0 +1,9 @@
+procedure alunoInadinplente()
+var aluno1:Aluno, livro1:Livro;
+begin
+livro1:= Create(Livro);
+aluno1:=Create(Aluno);
+[aluno1].estado:=[EstadoAtraso::Normal];
+Insert(Reserva,[aluno1],[livro1]);
+end;
+ 
