@@ -1,0 +1,276 @@
+model RoyalLoyal
+
+enum CardColor {silver, gold}
+
+-- !LoyaltyProgram1.enroll(Customer1,ServiceLevel1)
+class LoyaltyProgram
+attributes
+	name: String
+operations
+	enroll(customer: Customer, slevel: ServiceLevel):Membership
+	begin
+	    declare beforeMemberships: Set(Membership),
+		        afterMemberships: Set(Membership),
+				ms: Membership,
+				account: LoyaltyAccount,
+				card: CustomerCard;
+		
+		beforeMemberships := Membership.allInstances();
+		
+		insert(self,customer) into Membership;
+		
+		afterMemberships := Membership.allInstances();
+		ms := (afterMemberships-beforeMemberships)->
+		        asOrderedSet()->first();
+		
+		account := new LoyaltyAccount;
+		card := new CustomerCard;
+		
+		insert(customer,card) into CustomerCCard;
+		insert(ms,account) into MembershipLAccount;
+		insert(ms,slevel) into MembershipSLevel;
+		insert(ms,card) into MembershipCCard;
+		
+		result := ms;
+	end;
+
+	unenroll(customer: Customer, membership: Membership)
+	begin
+		destroy(membership.account);
+		destroy(membership.card);
+		delete (membership, membership.currentLevel) from MembershipSLevel;
+		delete (self,customer) from Membership;
+		
+		
+		--result := (Membership.allInstances()->asSet)->includes(self,customer);
+	end;
+	
+	getServices():Set(Service) = self.partners.services->asSet()
+end
+
+class Customer
+attributes
+	name: String
+	title: String
+	dateOfBirth: Data
+operations
+	
+end
+
+class ProgramPartner
+attributes
+	numberOfCustomers: Integer
+	name: String
+operations
+end
+
+class Data
+attributes
+	day: Integer
+	month: Integer
+	year: Integer
+operations
+	after(t: Data):Boolean
+	before(t: Data):Boolean
+end
+
+class ServiceLevel
+attributes
+	name: String
+operations
+end
+
+abstract class Transaction
+attributes
+	points: Integer
+	date: Data
+	amount: Real
+operations
+	program():LoyaltyProgram
+end
+
+class Burning < Transaction
+end
+
+class Earning < Transaction
+end
+
+class CustomerCard
+attributes
+	valid: Boolean
+	validoFrom: Data
+	goodThru: Data
+	color: CardColor
+operations
+end
+
+class LoyaltyAccount
+attributes
+	points: Integer
+	number: Integer
+operations
+	earn(p: Integer):Integer = self.points + p
+	burn(p:Integer):Integer = self.points - p
+	empty():Boolean
+	createTransaction(card: CustomerCard, service: Service, date: Data, amount: Real, isEarn: Boolean):Transaction
+	begin
+		declare transaction: Transaction,
+				points: Integer;
+				
+		points := service.calcPoints(amount);
+		
+		if isEarn then
+			transaction := new Earning;
+			self.points := self.points + points;
+		else
+			transaction:= new Burning;
+			self.points := self.points - points;
+		end;
+		
+		transaction.points := points;
+		transaction.date := date;
+		transaction.amount := amount;
+		
+		insert(self,transaction) into LAccountTransaction;
+		insert(card,transaction) into CCardTransaction;
+		insert(service,transaction) into ServiceTransaction;
+		
+		result:= transaction;
+	end;
+end
+
+
+
+class Service
+attributes
+	pointsEarned: Integer
+	pointsBurned: Integer
+	minValue: Integer
+	minPoints: Integer
+	multPoints: Integer
+operations
+	calcPoints(amount: Real):Integer = 
+		if (amount < minValue) 
+		then 
+			0
+		else
+			minPoints + ((amount.floor() - minValue)*multPoints)
+		endif
+end
+
+associationclass Membership between
+	LoyaltyProgram[*] role programs
+	Customer[*] role customers
+attributes
+operations
+	generateNewCards()
+	begin
+		declare card: CustomerCard,
+				memberships: Set(Membership),
+				m: Membership,
+				invCard: CustomerCard,
+				invalidCards: Set(CustomerCard);
+		
+		memberships := Membership.allInstances()->asSet;
+		invalidCards := CustomerCard.allInstances()->asSet;
+		
+		for invCard in invalidCards
+		do
+			invCard.valid := false;
+		end;
+		
+		for m in memberships
+		do
+			card := new CustomerCard;
+			card.valid := true;
+			
+			insert(self,card) into MembershipCCard;
+			insert(self.customers,card) into CustomerCCard;
+		end;
+	end;
+			
+end
+
+association LProgramPartner between
+	LoyaltyProgram[1..*] role programs
+	ProgramPartner[1..*] role partners
+end
+
+association PPartnerService between
+	ProgramPartner[1] role partner
+	Service[*] role services
+end
+
+association ServiceTransaction between
+	Service[1] role services
+	Transaction[*] role transactions
+end
+
+association LAccountTransaction between
+	LoyaltyAccount[1] role account
+	Transaction[*] role transactions
+end
+
+association CCardTransaction between
+	CustomerCard[1] role card
+	Transaction[*] role transactions
+end
+
+association MembershipLAccount between 
+	Membership[1] role membership
+	LoyaltyAccount[0..1] role account
+end
+
+association MembershipCCard between
+	Membership[1] role membership
+	CustomerCard[*] role card
+end
+
+association CustomerCCard between
+	Customer[1] role customer
+	CustomerCard[*] role cards
+end
+
+association LProgramSLevel between
+	LoyaltyProgram[1] role program
+	ServiceLevel[1..*] role levels
+end
+
+association MembershipSLevel between
+	Membership[*] role membership
+	ServiceLevel[1] role currentLevel
+end
+
+association ServiceSLevel between
+	Service[*] role availableServices
+	ServiceLevel[1] role level
+end
+
+constraints
+
+context LoyaltyProgram::enroll(customer: Customer, slevel: ServiceLevel):Membership
+pre: self.customers->excludes(customer)
+-- LoyaltyProgram1.customers->including(customer1)->size() = 0
+post: result.oclIsNew()
+
+context LoyaltyProgram::unenroll(customer: Customer, membership: Membership)
+pre: Membership.allInstances->asSet->includes(membership)
+
+--context LoyaltyProgram::generateNewCards()
+--post: CustomerCard.allInstances@pre->forAll(valid = false)
+
+
+context LoyaltyAccount::createTransaction(card: CustomerCard, service: Service, date: Data, amount: Real, isEarn: Boolean):Transaction
+
+pre ValidCard: card.valid = true
+
+pre ServiceIsFromLoyaltyProgram: service.partner.programs->asSet()->includes(card.membership.programs) = true
+
+post: if(isEarn)
+		then
+			self.points = self.points@pre + service.calcPoints(amount)
+		else
+			self.points = self.points@pre - service.calcPoints(amount)
+	  endif	  
+	  
+--post: self.amount = amount

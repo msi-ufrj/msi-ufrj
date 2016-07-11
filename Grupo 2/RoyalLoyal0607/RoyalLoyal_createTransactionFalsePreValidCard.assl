@@ -1,0 +1,30 @@
+procedure RoyalLoyal_createTransactionFalsePreValidCard()
+var	LP: LoyaltyProgram, PP: ProgramPartner, SL: ServiceLevel,
+	customer: Customer, customerCard: CustomerCard, account: LoyaltyAccount,
+	data: Data, service: Service, membership: Membership;
+	
+	begin
+		LP := Create(LoyaltyProgram);
+		PP := Create(ProgramPartner);
+		SL := Create(ServiceLevel);
+		customer := Create(Customer);
+		customerCard := Create(CustomerCard);
+		account := Create(LoyaltyAccount);
+		data := Create(Data);
+		service := Create(Service);
+		
+		-- membership := Create(Membership); -- Não sabemos criar...
+		
+		[customerCard].valid := [true];
+		[customerCard].color := [CardColor::silver];
+		
+		Insert(LProgramPartner, [LP], [PP]);
+		Insert(LProgramSLevel, [LP], [SL]);
+		Insert(Membership, [LP], [customer]);
+		Insert(CustomerCCard, [customer], [customerCard]);
+		Insert(MembershipSLevel, [membership], [SL]);
+		Insert(MembershipCCard, [membership], [customerCard]);
+		Insert(MembershipLAccount, [membership], [account]);
+		Insert(ServiceSLevel, [service], [SL]);
+		Insert(PPartnerService, [PP], [service]);
+	end;

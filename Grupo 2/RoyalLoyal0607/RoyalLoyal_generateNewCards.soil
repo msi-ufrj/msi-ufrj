@@ -1,0 +1,16 @@
+!new LoyaltyProgram
+!new Customer
+!new Customer
+!new ProgramPartner
+!new Service
+!new ServiceLevel
+
+!insert (LoyaltyProgram1,ProgramPartner1) into LProgramPartner
+!insert (ProgramPartner1,Service1) into PPartnerService
+!insert (LoyaltyProgram1,ServiceLevel1) into LProgramSLevel
+!insert (Service1,ServiceLevel1) into ServiceSLevel
+
+!LoyaltyProgram1.enroll(Customer1,ServiceLevel1);
+--!LoyaltyProgram1.enroll(Customer2,ServiceLevel1);
+
+!Membership1.generateNewCards();
