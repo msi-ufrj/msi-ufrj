@@ -155,6 +155,7 @@ operations
 		insert (m, cc) into Membership_CostumerCard;
 		insert (la, m) into LoyaltyAccount_Membership;
 		insert (sl, m) into ServiceLevel_Membership;
+		insert (c, cc) into Customer_CostumerCard;
 		
 		cc.validFrom := currentDate;
 		cc.valid := true;
@@ -166,9 +167,14 @@ operations
 		
 		result := m;
 	end
-	unroll(c: Customer)
+	
+	createCards(d: Data)
 	begin
-		delete (self, c) from Membership;
+				
+		for m in self.membership do
+			m.createNewCard(d);
+		end
+	
 	end
 	getServices(): Set(Service) = partners->collect(deliveredServices)->asSet()
 end
@@ -186,6 +192,36 @@ end
 associationclass Membership between
 LoyaltyProgram[*] role programs
 Customer[*] role participants
+operations
+	unroll()
+	begin
+		destroy self.card;
+		destroy self.account;
+		delete (self.programs, self.participants) from Membership;
+	end
+	createNewCard(currentDate: Data)
+	begin
+		declare cc: CostumerCard, d: Data, co: Color; 
+		
+		co := self.card.color;
+		destroy self.card;
+
+		cc := new CostumerCard;
+		
+		d := new Data;
+		d.day:= currentDate.day;
+		d.month:= currentDate.month;
+		d.year:= currentDate.year + 1;
+		
+		cc.validFrom := currentDate;
+		cc.valid := true;
+		cc.goodThru := d;
+		cc.color := co;
+		
+		insert (self, cc) into Membership_CostumerCard;
+		insert (self.participants, cc) into Customer_CostumerCard;
+		
+	end
 end
 
 association Transaction_Service between
@@ -281,5 +317,4 @@ constraints
 			else
 				points = points@pre + s.calcPoints(amount, isBurning)
 			endif
-		
 		
