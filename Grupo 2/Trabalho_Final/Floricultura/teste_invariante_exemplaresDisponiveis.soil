@@ -1,0 +1,14 @@
+!new Cliente
+!new Carrinho
+!new Flor
+!Flor1.valor := 10
+!new Flor
+!Flor2.valor := 25
+
+!new FlorExemplar
+!new FlorExemplar
+!insert (Flor1,FlorExemplar1) into FlorFExemplar
+!insert (Flor2,FlorExemplar2) into FlorFExemplar
+
+--Adicionando uma quantidade de flores ao carrinho maior do que o número de exemplares disponíveis para compra
+!Carrinho1.adicionarAoCarrinho(Flor1, 3)
