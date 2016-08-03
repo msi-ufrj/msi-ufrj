@@ -1,0 +1,308 @@
+model vuvuzela
+
+enum EstadoReclamacao{Aberta, NaoRespondida, NaoRespondidaTrinta, EmAndamento, Resolvida, NaoResolvida}
+
+class Data
+attributes
+	year : Integer
+	month : Integer
+	day : Integer
+operations
+now() : Data
+  	isAfter(t :Data) : Boolean =  year > t.year or year = t.year and month > t.month or year = t.year and month = t.month and day > t.day
+  	isBefore(t : Data) : Boolean =  year < t.year or year = t.year and month < t.month or year = t.year and month = t.month and day < t.day  
+  	isEqual(t: Data): Boolean =  year = t.year and month = t.month and day = t.day  
+end
+
+
+class Admin
+attributes
+	login: String
+	senha: String
+operations
+	VerificaEstadoReclamacoes() : Set(Reclamacao)
+	begin
+		for r in Reclamacao.allInstances() do
+			r.VerificaEstado();
+		end;
+		
+		result := Reclamacao.allInstances();
+	end
+	GerarAcaoConjunta(p: Produto) : AcaoConjunta
+	begin
+		declare ac: AcaoConjunta;
+		ac := new AcaoConjunta;
+		for r in p.reclamacao do
+			if r.estado = EstadoReclamacao::NaoRespondidaTrinta or r.estado = EstadoReclamacao::NaoResolvida then
+				insert(ac, r) into AcaoConjunta_Reclamacao
+			end;
+		end;
+		
+		result := ac;
+	end
+	criarEmpresa(nf: String, rs: String, cnpj: String) : Empresa
+	begin
+		declare e: Empresa; 
+		
+		e := new Empresa;
+		e.nfantasia := nf;
+		e.rsocial := rs;
+		e.CNPJ := cnpj;
+
+		result := e;
+	end
+	criarReclamante(nome: String, cpf: String, en: String) : Reclamante
+	begin
+		declare r: Reclamante; 
+		
+		r := new Reclamante;
+		r.endereco := en;
+		r.CPF := cpf;
+		r.nome := nome;
+
+		result := r;
+	end
+	rankingDeEmpresasComMaioresReclamacoes(): OrderedSet(Empresa) = Empresa.allInstances()->asOrderedSet();
+	empresaComMaisReclamacoes(): Empresa = self.rankingDeEmpresasComMaioresReclamacoes()->first();
+end
+
+class AcaoConjunta
+end
+
+class Reclamante
+attributes
+	nome: String
+	CPF: String
+	endereco: String
+operations 
+	CriarReclamacao(da: Data, ccp: Integer, tit: String, red: String, p: Produto, rp: String) : Reclamacao
+	begin
+		declare q: Questionario, d: Debate, 
+		r: Reclamacao, setReclamacaoAnterior: Set(Reclamacao), setReclamacaoPosterior: Set(Reclamacao), setReclamacaoDiferenca: Set(Reclamacao), setReclamacaoOrdenado: OrderedSet(Reclamacao),
+		rq: RespostaQuestionario, setRQAnterior: Set(RespostaQuestionario), setRQPosterior: Set(RespostaQuestionario), setRQDiferenca: Set(RespostaQuestionario), setRQOrdenado: OrderedSet(RespostaQuestionario); 
+		
+		setReclamacaoAnterior := Reclamacao.allInstances();
+		insert(self, p) into Reclamacao;
+		setReclamacaoPosterior := Reclamacao.allInstances(); 
+		setReclamacaoDiferenca := setReclamacaoPosterior - setReclamacaoAnterior;
+		setReclamacaoOrdenado := setReclamacaoDiferenca->asOrderedSet(); 
+		r := setReclamacaoOrdenado->first();
+		
+		r.estado := EstadoReclamacao::Aberta;
+		r.titulo := tit;
+		r.CCP := ccp;
+		r.data := da;
+		r.redacao := red; 
+		
+		d := new Debate;
+		d.tema := tit;
+		d.data := da;
+		d.corpo := red;
+		insert(d, r) into Negociacao;
+		
+		q := p.questionario;
+		setRQAnterior := RespostaQuestionario.allInstances();
+		insert(r, q) into RespostaQuestionario;
+		setRQPosterior := RespostaQuestionario.allInstances(); 
+		setRQDiferenca := setRQPosterior - setRQAnterior;
+		setRQOrdenado := setRQDiferenca->asOrderedSet(); 
+		rq := setRQOrdenado->first();
+		
+		rq.resposta := rp;
+		
+		result := r;
+	end
+	
+	Responder(da: Data, t: String, c: String, d: Debate) : Resposta
+	begin
+		declare r: Resposta; 		
+		
+		r := new Resposta;
+		r.dataCriacao := da;
+		r.titulo := t;
+		r.corpo := c;
+		insert(self, r) into RespostaReclamante;
+		insert(r, d) into Responde;
+		
+		result := r;
+	end
+	
+	FinalizarReclamacao(r: Reclamacao, res: Boolean) : Reclamacao
+	begin
+		if r.estado = EstadoReclamacao::NaoRespondidaTrinta or r.estado = EstadoReclamacao::EmAndamento or r.estado = EstadoReclamacao::NaoRespondida then
+			if res then
+				r.estado := EstadoReclamacao::Resolvida;
+			else
+				r.estado := EstadoReclamacao::NaoResolvida;
+			end;
+		end;
+		result := r;
+	end
+end
+
+class Debate 
+attributes
+	tema: String
+	corpo: String
+	data: Data
+end
+
+class Empresa
+attributes
+	nfantasia: String
+	rsocial: String
+	CNPJ: String
+operations 
+	criarProduto(cp: Integer, n: String) : Produto
+	begin
+		declare p: Produto; 
+		
+		p.codigoPortfolio := cp;
+		p.nome := n;
+
+		result := p;
+	end
+	Responder(da: Data, t: String, c: String, d: Debate) : Resposta
+	begin
+		declare r: Resposta; 		
+		
+		r := new Resposta;
+		r.dataCriacao := da;
+		r.titulo := t;
+		r.corpo := c;
+		insert(self, r) into RespostaEmpresa;
+		insert(r, d) into Responde;
+		
+		if d.reclamacao.estado = EstadoReclamacao::Aberta or d.reclamacao.estado = EstadoReclamacao::NaoRespondida then
+			d.reclamacao.estado :=  EstadoReclamacao::EmAndamento;
+		end;
+		
+		result := r;
+	end
+	todasReclamacoes(): Bag(Reclamacao) = self.produtos->collect(reclamacao);
+	todasReclamacoesPendentes(): Bag(Reclamacao) = self.produtos->collect(reclamacao)->select(x | x.estado = EstadoReclamacao::Aberta or x.estado = EstadoReclamacao::EmAndamento or x.estado = EstadoReclamacao::NaoRespondida or x.estado = EstadoReclamacao::NaoRespondidaTrinta);
+	quantidadeDeAcoesConjuntas(): Integer = self.produtos->collect(reclamacao)->collect(acaoconjunta)->size();
+end
+
+class Produto
+attributes
+	codigoPortfolio: Integer
+	nome: String
+operations 
+	criarQuestionario(t: String, c: String) : Questionario
+	begin
+		declare q: Questionario; 
+		
+		q.titulo := t;
+		q.corpo := c;
+
+		result := q;
+	end
+end
+
+class Questionario
+attributes
+	titulo: String
+	corpo: String
+end
+
+associationclass RespostaQuestionario between
+Reclamacao[*]
+Questionario[0..1]
+attributes
+	resposta: String
+end
+
+class Resposta
+attributes 
+	dataCriacao: Data
+	titulo: String
+	corpo: String
+end
+	
+associationclass Reclamacao between
+Reclamante[*]
+Produto [*]
+attributes
+	estado: EstadoReclamacao
+	titulo: String
+	CCP: Integer
+	data: Data 
+	redacao: String 	
+operations 
+	VerificaEstado()
+	begin
+		declare dataRespostaMaxima: Data, dataRespostaMaximaTrinta: Data; 
+		
+		dataRespostaMaxima := new Data;
+		dataRespostaMaxima.year := self.data.year;
+		dataRespostaMaxima.month := self.data.month;
+		dataRespostaMaxima.day := self.data.day + 2; --Aprimorar soma de dias (Considerar dia 31 e mes 12)
+		
+		dataRespostaMaximaTrinta := new Data;
+		dataRespostaMaximaTrinta.year := self.data.year;
+		dataRespostaMaximaTrinta.month := self.data.month + 1;
+		dataRespostaMaximaTrinta.day := self.data.day; --Aprimorar soma de 30 dias (Considerar dia 31 e mes 12)
+		
+		if self.estado = EstadoReclamacao::Aberta then
+			if self.data.isEqual(dataRespostaMaxima) or self.data.isAfter(dataRespostaMaxima) then
+				self.estado := EstadoReclamacao::NaoRespondida
+			end;
+		end;
+		
+		if self.estado = EstadoReclamacao::NaoRespondida then
+			if self.data.isEqual(dataRespostaMaximaTrinta) or self.data.isAfter(dataRespostaMaximaTrinta) then
+				self.estado := EstadoReclamacao::NaoRespondidaTrinta
+			end;
+		end;
+	end
+end
+
+association Oferta between
+	Empresa [1] role empresa
+	Produto [*] role produtos
+end
+
+association Produto_Questionario between 
+	Produto [1] role produto
+	Questionario [0..1] role questionario
+end
+
+association Negociacao between
+	Debate[1] role debate
+	Reclamacao [1] role reclamacao
+end
+
+association RespostaReclamante between
+	Reclamante [1] role reclamante
+	Resposta [*] role respostas
+end
+
+association RespostaEmpresa between
+	Empresa [1] role empresa
+	Resposta [*] role respostas
+end
+
+association Responde between 
+	Resposta [*] role respostas
+	Debate[1] role debate
+end
+
+association AcaoConjunta_Reclamacao between 
+	AcaoConjunta[0..1] role acaoconjunta
+	Reclamacao[*] role reclamacoes
+end
+
+constraints
+
+context Empresa
+	inv EmpresaRespontePorReclamcaoDeSeuProduto: 
+		self.produtos->collect(reclamacao)->collect(debate)->collect(respostas)->includesAll(self.respostas)
+
+context Reclamante
+	inv ReclamanteRespontePorSuasReclamacoes: 
+		self.reclamacao->collect(debate)->collect(respostas)->includesAll(self.respostas)
+		
+context Questionario
+	inv RespostaQuestionarioDeveSerReclamacaoProduto: 
+		self.produto.reclamacao->collect(respostaQuestionario)->includesAll(self.respostaQuestionario)
