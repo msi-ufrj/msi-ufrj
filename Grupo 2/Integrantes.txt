@@ -1,4 +1,3 @@
 1. Lucas Amaro
-2. Luiz André
-3. Ingrid de Oliveira
-4. Daniel Amaral (Lab 3+)
+2. Ingrid de Oliveira
+3. Daniel Amaral

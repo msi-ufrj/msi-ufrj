@@ -1,0 +1,12 @@
+!new Cliente
+!new Carrinho
+!new Flor
+!Flor1.valor := 10
+!new Flor
+!Flor2.valor := 25
+
+!new FlorExemplar
+!insert (Flor1,FlorExemplar1) into FlorFExemplar
+
+--Adicionando uma quantidade negativa de flores ao carrinho
+!Carrinho1.adicionarAoCarrinho(Flor1, -2)

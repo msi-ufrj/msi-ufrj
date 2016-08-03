@@ -1,0 +1,164 @@
+model Floricultura
+
+enum statusEntrega {Finalizado,EmAndamento}
+
+class Flor
+attributes
+	tipo: String
+	valor: Real
+	descricao: String
+end
+
+class FlorExemplar
+attributes
+	
+operations
+end
+
+class Cliente
+attributes
+	nome: String
+	CPF: Integer
+	email: String
+	telefone: String
+operations
+	historicoDeCompras(): Set(Compra) = self.compra;
+	acompanharEntrega(compra: Compra): statusEntrega = compra.entrega.status; --verificar o status de uma compra
+end
+
+class Carrinho
+attributes
+operations
+	adicionarAoCarrinho(f: Flor, qtd: Integer): FlorCarrinho
+	begin
+		declare fc: FlorCarrinho;
+		insert(f, self) into FlorCarrinho;
+		fc := self.florCarrinho->select(m | m.flor = f)->asOrderedSet()->first();
+		fc.qtd := qtd;
+		result := fc;
+	end
+	
+	removerItemDoCarrinho(f: Flor)
+	begin
+		delete (f, self) from FlorCarrinho;
+	end
+	fecharCarrinho(cliente: Cliente, cartao: Integer, dataCompra: Data): Compra
+	begin
+		declare	florCarrinhos: OrderedSet(FlorCarrinho),
+				florCarrinho: FlorCarrinho,
+				qtd: Integer,
+				exemplares: OrderedSet(FlorExemplar),
+				i: Integer,
+				compra: Compra;
+		
+		insert (cliente,self) into Compra;
+		compra := Compra.allInstances()->select(c | c.cliente = cliente and c.carrinho = self)->asOrderedSet()->first();
+		
+		florCarrinhos := self.florCarrinho->asOrderedSet();
+		compra.total := self.total();
+        compra.cartao := cartao;
+		compra.dataCompra := dataCompra;
+
+		for florCarrinho in florCarrinhos
+		do
+			qtd := florCarrinho.qtd;
+			exemplares := florCarrinho.flor.exemplares->asOrderedSet();
+			for i in Sequence{1..qtd}
+			do
+				insert(compra, exemplares->first()) into CompraExemplar;
+				delete (florCarrinho.flor, exemplares->first()) from FlorFExemplar;
+			end;
+		end;
+		
+		result := compra;
+	end
+	
+	total(): Real
+	begin
+		result := self.florCarrinho->iterate(fc : FlorCarrinho; acc : Real = 0 | acc + fc.qtd * fc.flor.valor);
+	end
+end
+
+class Transportadora
+attributes
+	nome: String
+operations
+	finalizarEntrega(entrega: Entrega)
+    begin
+        entrega.status := statusEntrega::Finalizado;
+	end
+end
+
+class Data
+attributes
+	dia: Integer
+	mes: Integer
+	ano: Integer
+operations
+	antes(d: Data):Boolean
+	depois(d: Data):Boolean
+end
+
+associationclass Compra between
+	Cliente[0..1] role cliente
+	Carrinho[*] role carrinho
+attributes
+	total: Real
+	cartao: Integer --numero do cartao de credito
+	dataCompra: Data
+operations
+	finalizarCompra(transportadora: Transportadora, data: Data, hora: Integer, cep: Integer, endereco: String): Entrega
+    begin
+      declare entrega: Entrega;
+
+      insert (self, transportadora) into Entrega;
+	  entrega := Entrega.allInstances()->select(e | e.compras = self and e.transportadora = transportadora)->asOrderedSet()->first();
+
+	  entrega.data := data;
+	  entrega.hora := hora;
+	  entrega.CEP := cep;
+	  entrega.endereco := endereco;
+	  entrega.status := statusEntrega::EmAndamento;
+	  
+      result := entrega;
+	end
+
+end
+
+association FlorFExemplar between
+	Flor[1] role flor
+	FlorExemplar[*] role exemplares
+end
+
+associationclass FlorCarrinho between
+	Flor[*] role flor
+	Carrinho[*] role carrinho
+attributes
+	qtd: Integer
+end
+
+composition CompraExemplar between
+	Compra[0..1] role compra
+	FlorExemplar[*] role exemplares
+end
+
+associationclass Entrega between
+	Compra[*] role compras
+	Transportadora[1] role transportadora	
+attributes
+	data: Data
+	hora: Integer
+	CEP: Integer
+	endereco: String
+	status: statusEntrega 
+operations
+end	
+
+
+constraints 
+
+context Carrinho
+	inv exemplaresDisponiveis:
+		self.florCarrinho->select(f | f.qtd <= f.flor.exemplares->size())->asOrderedSet() = self.florCarrinho->asOrderedSet()
+	inv totalValido:
+		self.florCarrinho->select(fc | fc.qtd <= 0)->size() = 0
