@@ -14,7 +14,7 @@
     <name>Resposta</name>
     <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
       <x>130.4628348748107</x>
-      <y>22.87265667137399</y>
+      <y>27.87265667137399</y>
     </strategy>
     <hidden>false</hidden>
   </node>
@@ -37,8 +37,8 @@
   <node id="Questionario" sizeCalculated="true" type="Class">
     <name>Questionario</name>
     <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-      <x>874.0786266980922</x>
-      <y>576.4981347890996</y>
+      <x>882.0786266980922</x>
+      <y>591.4981347890996</y>
     </strategy>
     <hidden>false</hidden>
   </node>
@@ -78,7 +78,7 @@
     <name>Reclamante</name>
     <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
       <x>360.5023121070875</x>
-      <y>224.84846971678348</y>
+      <y>228.84846971678348</y>
     </strategy>
     <hidden>false</hidden>
   </node>
@@ -109,8 +109,8 @@
   <node id="Produto" sizeCalculated="true" type="Class">
     <name>Produto</name>
     <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyFixed">
-      <x>483.18273295482004</x>
-      <y>568.6944525286945</y>
+      <x>485.18273295482004</x>
+      <y>581.6944525286945</y>
     </strategy>
     <hidden>false</hidden>
   </node>
@@ -153,19 +153,6 @@
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
-      <edgeproperty id="Responde::source::multiplicity"
-        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
-        <name>*</name>
-        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-          <userOffsetX>0.0</userOffsetX>
-          <userOffsetY>0.0</userOffsetY>
-          <attached>Responde::WayPoint::0</attached>
-          <offset_x>8</offset_x>
-          <offset_y>8</offset_y>
-          <placement>BOTTOM</placement>
-        </strategy>
-        <hidden>false</hidden>
-      </edgeproperty>
       <edgeproperty id="Responde::source::rolename"
         sizeCalculated="true" type="rolename" userDefined="false" visible="true">
         <name>respostas</name>
@@ -176,6 +163,19 @@
           <offset_x>8</offset_x>
           <offset_y>8</offset_y>
           <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Responde::source::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+        <name>*</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>10.0</userOffsetX>
+          <userOffsetY>-7.0</userOffsetY>
+          <attached>Responde::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
@@ -325,19 +325,6 @@
     <target>Reclamacao</target>
     <name>Negociacao</name>
     <properties>
-      <edgeproperty id="Negociacao::target::rolename"
-        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
-        <name>reclamacao</name>
-        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-          <userOffsetX>0.0</userOffsetX>
-          <userOffsetY>0.0</userOffsetY>
-          <attached>Negociacao::WayPoint::1</attached>
-          <offset_x>8</offset_x>
-          <offset_y>8</offset_y>
-          <placement>TOP</placement>
-        </strategy>
-        <hidden>false</hidden>
-      </edgeproperty>
       <edgeproperty id="Negociacao::target::multiplicity"
         sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
         <name>1</name>
@@ -351,16 +338,16 @@
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
-      <edgeproperty id="Negociacao::source::multiplicity"
-        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
-        <name>1</name>
+      <edgeproperty id="Negociacao::target::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>reclamacao</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
           <userOffsetX>0.0</userOffsetX>
           <userOffsetY>0.0</userOffsetY>
-          <attached>Negociacao::WayPoint::0</attached>
+          <attached>Negociacao::WayPoint::1</attached>
           <offset_x>8</offset_x>
           <offset_y>8</offset_y>
-          <placement>BOTTOM</placement>
+          <placement>TOP</placement>
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
@@ -374,6 +361,19 @@
           <offset_x>8</offset_x>
           <offset_y>8</offset_y>
           <placement>TOP</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Negociacao::source::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        <name>1</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Negociacao::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>BOTTOM</placement>
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
@@ -424,19 +424,6 @@
     <target>Resposta</target>
     <name>RespostaReclamante</name>
     <properties>
-      <edgeproperty id="RespostaReclamante::target::rolename"
-        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
-        <name>respostas</name>
-        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-          <userOffsetX>0.0</userOffsetX>
-          <userOffsetY>0.0</userOffsetY>
-          <attached>RespostaReclamante::WayPoint::1</attached>
-          <offset_x>8</offset_x>
-          <offset_y>8</offset_y>
-          <placement>TOP</placement>
-        </strategy>
-        <hidden>false</hidden>
-      </edgeproperty>
       <edgeproperty id="RespostaReclamante::target::multiplicity"
         sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
         <name>*</name>
@@ -447,6 +434,19 @@
           <offset_x>8</offset_x>
           <offset_y>8</offset_y>
           <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="RespostaReclamante::target::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>respostas</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>RespostaReclamante::WayPoint::1</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
@@ -636,11 +636,11 @@
         <hidden>false</hidden>
       </edgeproperty>
       <edgeproperty id="Produto_Questionario::target::multiplicity"
-        sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
+        sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
         <name>0..1</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
           <userOffsetX>0.0</userOffsetX>
-          <userOffsetY>0.0</userOffsetY>
+          <userOffsetY>-14.0</userOffsetY>
           <attached>Produto_Questionario::WayPoint::1</attached>
           <offset_x>8</offset_x>
           <offset_y>8</offset_y>
@@ -747,19 +747,6 @@
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
-      <edgeproperty id="RespostaEmpresa::source::rolename"
-        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
-        <name>empresa</name>
-        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-          <userOffsetX>0.0</userOffsetX>
-          <userOffsetY>0.0</userOffsetY>
-          <attached>RespostaEmpresa::WayPoint::0</attached>
-          <offset_x>8</offset_x>
-          <offset_y>8</offset_y>
-          <placement>TOP</placement>
-        </strategy>
-        <hidden>false</hidden>
-      </edgeproperty>
       <edgeproperty id="RespostaEmpresa::source::multiplicity"
         sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
         <name>1</name>
@@ -770,6 +757,19 @@
           <offset_x>8</offset_x>
           <offset_y>8</offset_y>
           <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="RespostaEmpresa::source::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>empresa</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>RespostaEmpresa::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
@@ -846,19 +846,6 @@
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
-      <edgeproperty id="RespostaQuestionario::source::rolename"
-        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
-        <name>reclamacao</name>
-        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-          <userOffsetX>0.0</userOffsetX>
-          <userOffsetY>0.0</userOffsetY>
-          <attached>RespostaQuestionario::WayPoint::0</attached>
-          <offset_x>8</offset_x>
-          <offset_y>8</offset_y>
-          <placement>TOP</placement>
-        </strategy>
-        <hidden>false</hidden>
-      </edgeproperty>
       <edgeproperty id="RespostaQuestionario::source::multiplicity"
         sizeCalculated="true" type="multiplicity" userDefined="false" visible="true">
         <name>*</name>
@@ -869,6 +856,19 @@
           <offset_x>8</offset_x>
           <offset_y>8</offset_y>
           <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="RespostaQuestionario::source::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>reclamacao</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>RespostaQuestionario::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
@@ -956,19 +956,6 @@
     <target>Produto</target>
     <name>Reclamacao</name>
     <properties>
-      <edgeproperty id="Reclamacao::target::multiplicity"
-        sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
-        <name>*</name>
-        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-          <userOffsetX>1.0</userOffsetX>
-          <userOffsetY>5.0</userOffsetY>
-          <attached>Reclamacao::WayPoint::1</attached>
-          <offset_x>8</offset_x>
-          <offset_y>8</offset_y>
-          <placement>BOTTOM</placement>
-        </strategy>
-        <hidden>false</hidden>
-      </edgeproperty>
       <edgeproperty id="Reclamacao::target::rolename"
         sizeCalculated="true" type="rolename" userDefined="false" visible="true">
         <name>produto</name>
@@ -982,16 +969,16 @@
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
-      <edgeproperty id="Reclamacao::source::rolename"
-        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
-        <name>reclamante</name>
+      <edgeproperty id="Reclamacao::target::multiplicity"
+        sizeCalculated="true" type="multiplicity" userDefined="true" visible="true">
+        <name>*</name>
         <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
-          <userOffsetX>0.0</userOffsetX>
-          <userOffsetY>0.0</userOffsetY>
-          <attached>Reclamacao::WayPoint::0</attached>
+          <userOffsetX>1.0</userOffsetX>
+          <userOffsetY>5.0</userOffsetY>
+          <attached>Reclamacao::WayPoint::1</attached>
           <offset_x>8</offset_x>
           <offset_y>8</offset_y>
-          <placement>TOP</placement>
+          <placement>BOTTOM</placement>
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>
@@ -1005,6 +992,19 @@
           <offset_x>8</offset_x>
           <offset_y>8</offset_y>
           <placement>BOTTOM</placement>
+        </strategy>
+        <hidden>false</hidden>
+      </edgeproperty>
+      <edgeproperty id="Reclamacao::source::rolename"
+        sizeCalculated="true" type="rolename" userDefined="false" visible="true">
+        <name>reclamante</name>
+        <strategy type="org.tzi.use.gui.views.diagrams.elements.positioning.StrategyRelativeToAttached">
+          <userOffsetX>0.0</userOffsetX>
+          <userOffsetY>0.0</userOffsetY>
+          <attached>Reclamacao::WayPoint::0</attached>
+          <offset_x>8</offset_x>
+          <offset_y>8</offset_y>
+          <placement>TOP</placement>
         </strategy>
         <hidden>false</hidden>
       </edgeproperty>

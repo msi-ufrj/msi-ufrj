@@ -62,6 +62,8 @@ operations
 
 		result := r;
 	end
+	rankingDeEmpresasComMaioresReclamacoes(): OrderedSet(Empresa) = Empresa.allInstances()->asOrderedSet();
+	empresaComMaisReclamacoes(): Empresa = self.rankingDeEmpresasComMaioresReclamacoes()->first();
 end
 
 class AcaoConjunta
@@ -177,6 +179,9 @@ operations
 		
 		result := r;
 	end
+	todasReclamacoes(): Bag(Reclamacao) = self.produtos->collect(reclamacao);
+	todasReclamacoesPendentes(): Bag(Reclamacao) = self.produtos->collect(reclamacao)->select(x | x.estado = EstadoReclamacao::Aberta or x.estado = EstadoReclamacao::EmAndamento or x.estado = EstadoReclamacao::NaoRespondida or x.estado = EstadoReclamacao::NaoRespondidaTrinta);
+	quantidadeDeAcoesConjuntas(): Integer = self.produtos->collect(reclamacao)->collect(acaoconjunta)->size();
 end
 
 class Produto
